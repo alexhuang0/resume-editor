@@ -1,0 +1,142 @@
+/* Shared screen + print typography for the rendered resume page.
+   The .page node is what gets printed; the rest of the app uses @media print
+   in app.css to hide itself. */
+
+.page {
+  /* Letter @ 96dpi: 8.5in x 11in. Margins ~0.5in. */
+  width: 8.5in;
+  min-height: 11in;
+  padding: 0.5in 0.6in;
+  background: #fff;
+  color: #000;
+  font-family: var(--resume-font, "Latin Modern Roman", "CMU Serif", "Computer Modern", Georgia, "Times New Roman", serif);
+  font-size: 10.5pt;
+  line-height: 1.25;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  margin: 0 auto;
+}
+
+.page.font-system-serif {
+  --resume-font: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+/* Header */
+.r-header {
+  text-align: center;
+  margin-bottom: 8pt;
+}
+
+.r-name {
+  font-size: 20pt;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  margin: 0 0 2pt 0;
+  line-height: 1.1;
+}
+
+.r-contact {
+  font-size: 10pt;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 8pt;
+  margin: 0;
+}
+
+.r-contact > * {
+  white-space: nowrap;
+}
+
+.r-contact a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.r-sep {
+  color: #555;
+}
+
+/* Sections */
+.r-section {
+  margin-top: 6pt;
+}
+
+.r-section-title {
+  font-size: 12pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 2pt 0;
+  padding-bottom: 1pt;
+  border-bottom: 0.5pt solid #000;
+}
+
+/* Items */
+.r-item {
+  margin-top: 4pt;
+}
+
+.r-item-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 8pt;
+}
+
+.r-item-headerL {
+  display: flex;
+  flex-direction: column;
+}
+
+.r-item-headerR {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.r-heading {
+  font-weight: bold;
+}
+
+.r-subheading {
+  font-style: italic;
+}
+
+.r-location,
+.r-date {
+  font-style: italic;
+}
+
+/* Bullets */
+.r-bullets {
+  margin: 2pt 0 0 0;
+  padding-left: 16pt;
+  list-style-type: disc;
+}
+
+.r-bullets li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Skills section: render each item as a single line "Category: items". */
+.r-skill-row {
+  margin: 0;
+}
+
+.r-skill-row .r-heading {
+  font-weight: bold;
+}
+
+@page {
+  size: Letter;
+  margin: 0;
+}
+
+@media print {
+  .page {
+    box-shadow: none;
+    margin: 0;
+    width: 8.5in;
+    min-height: 11in;
+  }
+}
