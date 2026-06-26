@@ -9,7 +9,7 @@ If you'd rather read code, jump to [CLAUDE.md](./CLAUDE.md) — that's the archi
 ## If you only read three things
 
 1. **The JSON in `src/store/schema.ts` is the canonical artifact.** Everything else (the UI, the PDF, the Markdown) is downstream. The whole point of this app is that you can hand that JSON to Claude.ai with a job posting and re-import Claude's edited JSON. Don't put UI-only fields in it.
-2. **`hidden: true` is how you tailor — not deletion.** Every Section, Item, and Bullet has a `hidden` flag. Hidden nodes vanish from the preview/PDF/Markdown but stay in the JSON, so you can re-enable them for the next variant. Tailoring actions should toggle `hidden`, not splice arrays.
+2. **`hidden: true` is how you tailor — not deletion.** Every Section, Item, Bullet, and Header contact field has a `hidden` flag. Hidden nodes vanish from the preview/PDF/Markdown but stay in the JSON, so you can re-enable them for the next variant. Tailoring actions should toggle `hidden`, not splice arrays.
 3. **Before shipping a change, run the verification ritual.** There is no test suite by design (see below). The ritual is in §8.
 
 ---
@@ -24,7 +24,11 @@ The JSON-as-canonical-artifact is the load-bearing decision. PDFs and Markdown a
 
 ## Mental model in 5 minutes
 
-Three nested levels: **Section → Item → Bullet**. Each level has a stable `id`, an optional `hidden` boolean, and lives in an array where **array index = render order**. Drag-to-reorder is literally a mutation of those arrays.
+The resume has two flexible parts:
+
+**Header** — a fixed `fullName` field (the `<h1>`) plus a `fields[]` array of contact entries. Each field has an `id`, `label` (display text), optional `url` (use `mailto:` for email), and optional `hidden`. You can add arbitrary fields (e.g. "English/Arabic (bilingual)"), reorder them, and hide them per variant. This is how you show bilingual status in one variant and omit it in another.
+
+**Body** — three nested levels: **Section → Item → Bullet**. Each level has a stable `id`, an optional `hidden` boolean, and lives in an array where **array index = render order**. Drag-to-reorder is literally a mutation of those arrays.
 
 Two zustand stores:
 
@@ -52,8 +56,8 @@ npm run dev          # http://localhost:5173
 
 - **`Resume` schema (`src/store/schema.ts`) is the contract with Claude.ai.** Field names should be obvious to an LLM editing in place. Don't put UI ephemera here — that's `uiStore`'s job.
 - **The PDF must stay ATS-parseable.** No text inside SVG/images. No CSS columns or `<table>` for layout. Single-column flow. Contact info in the document body, not a print header/footer. Bullet markers via CSS `list-style` only.
-- **`hidden: true` removes from output, never from data.** Tailoring actions (especially anything Claude does in the JSON) should toggle `hidden`, not delete. The user's mental model is "I'll need this for the *next* role."
-- **Bump `schemaVersion` if you change the shape.** Add a migration branch in `parseImport` (`src/exporters/importExport.ts`). Otherwise re-importing older JSON files silently breaks.
+- **`hidden: true` removes from output, never from data.** This applies at every level: Section, Item, Bullet, and Header contact field. Tailoring actions (especially anything Claude does in the JSON) should toggle `hidden`, not delete. The user's mental model is "I'll need this for the *next* role."
+- **Bump `schemaVersion` if you change the shape.** Add a migration in both `parseImport` (`src/exporters/importExport.ts`) and the zustand `migrate` function in `resumeStore.ts`. Otherwise re-importing older JSON files or loading old localStorage data silently breaks. The v1→v2 bump (flexible header fields) is already done and is the reference example.
 - **Array index = render order, everywhere.** Don't introduce a parallel `order: number` field — order *is* the array.
 
 ---
@@ -80,10 +84,11 @@ Use this after `npm install` to confirm everything still works before making rea
 
 1. Open the app. The Default variant is seeded with Jake's-resume content. Right pane shows the rendered page.
 2. Edit a bullet in Experience. Preview updates live. Reload — your edit persisted.
-3. Drag a section to reorder. Drag a bullet to a new position within an item.
-4. Toggle hide (eye icon) on a bullet. Preview drops it; the bullet stays in the editor with strikethrough.
-5. **Export JSON** the active variant. Open the file, eyeball the schema. Click **Import JSON**, choose "add as new variant" — preview is identical.
-6. `Cmd+P` → Save as PDF. Open the PDF, `Cmd+A` `Cmd+C`, paste into a plain-text editor — should be linear, selectable, ATS-parseable.
+3. In the Header, drag a contact field to reorder it. Toggle hide (eye icon) on one — preview drops it from the contact line; the field stays in the editor dimmed.
+4. Drag a section to reorder. Drag a bullet to a new position within an item.
+5. Toggle hide (eye icon) on a bullet. Preview drops it; the bullet stays in the editor with strikethrough.
+6. **Export JSON** the active variant. Open the file, eyeball the schema — you should see `header.fields[]` (not bare `email`/`phone` fields) and `schemaVersion: 2`. Click **Import JSON**, choose "add as new variant" — preview is identical.
+7. `Cmd+P` → Save as PDF. Open the PDF, `Cmd+A` `Cmd+C`, paste into a plain-text editor — should be linear, selectable, ATS-parseable.
 
 If any of those steps fails, fix it before doing anything else.
 
@@ -95,8 +100,8 @@ Same vibe as §7 but more thorough — run this after a real code change:
 
 1. `npm run build` — type-check + production build must pass.
 2. `npm run dev`, edit + reload — persistence still works.
-3. Drag at all three levels (section, item within a section, bullet within an item).
-4. Hide and re-show at all three levels.
+3. Drag at all four levels: Header contact field, section, item within a section, bullet within an item.
+4. Hide and re-show at all four levels (including a Header contact field).
 5. Create a second variant, switch between them — no cross-contamination.
 6. Export JSON of the active variant; re-import as a new variant; preview matches.
 7. Export all (library backup); import all on a fresh browser profile if you can; library restores.
