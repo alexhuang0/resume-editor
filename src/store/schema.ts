@@ -32,23 +32,22 @@ export const SectionSchema = z.object({
   items: z.array(ItemSchema),
 });
 
-export const LinkSchema = z.object({
+export const HeaderFieldSchema = z.object({
+  id: z.string(),
   label: z.string(),
-  url: z.string(),
+  url: z.string().optional(),
+  hidden: z.boolean().optional(),
 });
 
 export const HeaderSchema = z.object({
   fullName: z.string(),
-  location: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  links: z.array(LinkSchema).optional(),
+  fields: z.array(HeaderFieldSchema),
 });
 
 export const FontChoiceSchema = z.enum(["latin-modern", "system-serif"]);
 
 export const ResumeSchema = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(2),
   id: z.string(),
   name: z.string(),
   updatedAt: z.string(),
@@ -58,7 +57,7 @@ export const ResumeSchema = z.object({
 });
 
 export const LibrarySchema = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(2),
   variants: z.array(ResumeSchema),
 });
 
@@ -66,13 +65,13 @@ export type Bullet = z.infer<typeof BulletSchema>;
 export type Item = z.infer<typeof ItemSchema>;
 export type SectionKind = z.infer<typeof SectionKindSchema>;
 export type Section = z.infer<typeof SectionSchema>;
-export type Link = z.infer<typeof LinkSchema>;
+export type HeaderField = z.infer<typeof HeaderFieldSchema>;
 export type Header = z.infer<typeof HeaderSchema>;
 export type FontChoice = z.infer<typeof FontChoiceSchema>;
 export type Resume = z.infer<typeof ResumeSchema>;
 export type Library = z.infer<typeof LibrarySchema>;
 
-export const CURRENT_SCHEMA_VERSION = 1 as const;
+export const CURRENT_SCHEMA_VERSION = 2 as const;
 
 export function newId(prefix = ""): string {
   const rand = Math.random().toString(36).slice(2, 10);

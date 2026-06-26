@@ -7,17 +7,12 @@ function visible<T extends { hidden?: boolean }>(arr: T[]): T[] {
 function renderHeader(r: Resume): string {
   const lines: string[] = [];
   lines.push(`# ${r.header.fullName || "Your Name"}`);
-  const contact: string[] = [];
-  if (r.header.location) contact.push(r.header.location);
-  if (r.header.phone) contact.push(r.header.phone);
-  if (r.header.email) contact.push(r.header.email);
-  for (const link of r.header.links ?? []) {
-    if (!link.label && !link.url) continue;
-    if (link.url && link.label) contact.push(`[${link.label}](${link.url})`);
-    else if (link.url) contact.push(link.url);
-    else contact.push(link.label);
-  }
-  if (contact.length > 0) lines.push(contact.join(" | "));
+  const contact = (r.header.fields ?? [])
+    .filter((f) => !f.hidden)
+    .map((f) => (f.url && f.label ? `[${f.label}](${f.url})` : f.label || f.url || ""))
+    .filter(Boolean)
+    .join(" | ");
+  if (contact) lines.push(contact);
   return lines.join("\n");
 }
 

@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type {
   Bullet,
-  Header,
+  HeaderField,
   Item,
   Resume,
   Section,
@@ -30,11 +30,14 @@ type Actions = {
   replaceLibrary: (variants: Resume[]) => void;
 
   // Header
-  updateHeader: (patch: Partial<Header>) => void;
-  setLink: (index: number, label: string, url: string) => void;
-  addLink: () => void;
-  removeLink: (index: number) => void;
-  moveLink: (from: number, to: number) => void;
+  updateHeader: (patch: { fullName?: string }) => void;
+  addHeaderField: (afterId?: string) => string;
+  deleteHeaderField: (id: string) => HeaderField | null;
+  insertHeaderField: (field: HeaderField, atIndex: number) => void;
+  updateHeaderField: (id: string, patch: Partial<HeaderField>) => void;
+  duplicateHeaderField: (id: string) => string | null;
+  toggleHeaderFieldHidden: (id: string) => void;
+  reorderHeaderFields: (orderedIds: string[]) => void;
 
   // Font
   setFont: (font: Resume["font"]) => void;
@@ -131,6 +134,29 @@ function defaultSectionTitle(kind: SectionKind): string {
     case "custom":
       return "New Section";
   }
+}
+
+function migrateResumeV1toV2(v: unknown): unknown {
+  const r = v as Record<string, unknown>;
+  const header = r.header as Record<string, unknown> | undefined;
+  if (!header || Array.isArray(header.fields)) {
+    return { ...r, schemaVersion: 2 };
+  }
+  const fields: HeaderField[] = [];
+  if (typeof header.location === "string" && header.location)
+    fields.push({ id: newId("hf"), label: header.location });
+  if (typeof header.phone === "string" && header.phone)
+    fields.push({ id: newId("hf"), label: header.phone });
+  if (typeof header.email === "string" && header.email)
+    fields.push({ id: newId("hf"), label: header.email, url: `mailto:${header.email}` });
+  const links = Array.isArray(header.links)
+    ? (header.links as { label?: string; url?: string }[])
+    : [];
+  for (const l of links) {
+    if (!l.label && !l.url) continue;
+    fields.push({ id: newId("hf"), label: l.label ?? l.url ?? "", url: l.url });
+  }
+  return { ...r, schemaVersion: 2, header: { fullName: header.fullName ?? "", fields } };
 }
 
 function blankItem(): Item {
@@ -259,43 +285,73 @@ export const useResumeStore = create<ResumeStore>()(
         updateHeader: (patch) =>
           updateCurrent((r) => ({ ...r, header: { ...r.header, ...patch } })),
 
-        setLink: (index, label, url) =>
+        addHeaderField: (afterId) => {
+          const field: HeaderField = { id: newId("hf"), label: "" };
+          updateCurrent((r) => ({
+            ...r,
+            header: { ...r.header, fields: insertAfter(r.header.fields, afterId, field) },
+          }));
+          return field.id;
+        },
+
+        deleteHeaderField: (id) => {
+          let removed: HeaderField | null = null;
           updateCurrent((r) => {
-            const links = [...(r.header.links ?? [])];
-            if (index < 0 || index >= links.length) return r;
-            links[index] = { label, url };
-            return { ...r, header: { ...r.header, links } };
+            removed = r.header.fields.find((f) => f.id === id) ?? null;
+            return {
+              ...r,
+              header: { ...r.header, fields: r.header.fields.filter((f) => f.id !== id) },
+            };
+          });
+          return removed;
+        },
+
+        insertHeaderField: (field, atIndex) =>
+          updateCurrent((r) => {
+            const fields = [...r.header.fields];
+            fields.splice(Math.max(0, Math.min(atIndex, fields.length)), 0, field);
+            return { ...r, header: { ...r.header, fields } };
           }),
 
-        addLink: () =>
+        updateHeaderField: (id, patch) =>
           updateCurrent((r) => ({
             ...r,
             header: {
               ...r.header,
-              links: [...(r.header.links ?? []), { label: "", url: "" }],
+              fields: r.header.fields.map((f) => (f.id === id ? { ...f, ...patch } : f)),
             },
           })),
 
-        removeLink: (index) =>
+        duplicateHeaderField: (id) => {
+          let newId_: string | null = null;
           updateCurrent((r) => {
-            const links = (r.header.links ?? []).filter((_, i) => i !== index);
-            return { ...r, header: { ...r.header, links } };
-          }),
+            const idx = r.header.fields.findIndex((f) => f.id === id);
+            if (idx === -1) return r;
+            const copy: HeaderField = { ...r.header.fields[idx], id: newId("hf") };
+            newId_ = copy.id;
+            const fields = [...r.header.fields];
+            fields.splice(idx + 1, 0, copy);
+            return { ...r, header: { ...r.header, fields } };
+          });
+          return newId_;
+        },
 
-        moveLink: (from, to) =>
-          updateCurrent((r) => {
-            const links = [...(r.header.links ?? [])];
-            if (
-              from < 0 ||
-              from >= links.length ||
-              to < 0 ||
-              to >= links.length
-            )
-              return r;
-            const [m] = links.splice(from, 1);
-            links.splice(to, 0, m);
-            return { ...r, header: { ...r.header, links } };
-          }),
+        toggleHeaderFieldHidden: (id) =>
+          updateCurrent((r) => ({
+            ...r,
+            header: {
+              ...r.header,
+              fields: r.header.fields.map((f) =>
+                f.id === id ? { ...f, hidden: !f.hidden } : f
+              ),
+            },
+          })),
+
+        reorderHeaderFields: (orderedIds) =>
+          updateCurrent((r) => ({
+            ...r,
+            header: { ...r.header, fields: reorderByIds(r.header.fields, orderedIds) },
+          })),
 
         setFont: (font) => updateCurrent((r) => ({ ...r, font })),
 
@@ -627,7 +683,17 @@ export const useResumeStore = create<ResumeStore>()(
     },
     {
       name: STORAGE_KEY,
-      version: 1,
+      version: 2,
+      migrate: (persisted, fromVersion) => {
+        if (fromVersion === 1) {
+          const old = persisted as { variants: unknown[]; currentVariantId: string };
+          return {
+            ...old,
+            variants: old.variants.map((v) => migrateResumeV1toV2(v)),
+          };
+        }
+        return persisted as LibraryState;
+      },
       partialize: (s) => ({
         variants: s.variants,
         currentVariantId: s.currentVariantId,

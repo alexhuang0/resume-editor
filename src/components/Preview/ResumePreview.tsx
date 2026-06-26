@@ -77,32 +77,14 @@ export function ResumePreview({ resume }: Props) {
   const sections = visibleSections(resume);
   const fontClass =
     resume.font === "system-serif" ? "font-system-serif" : "font-latin-modern";
-  const links = resume.header.links ?? [];
-  const contactItems: { key: string; node: React.ReactNode }[] = [];
-  if (resume.header.location)
-    contactItems.push({
-      key: "loc",
-      node: <span>{resume.header.location}</span>,
-    });
-  if (resume.header.phone)
-    contactItems.push({
-      key: "ph",
-      node: <span>{resume.header.phone}</span>,
-    });
-  if (resume.header.email)
-    contactItems.push({
-      key: "em",
-      node: (
-        <a href={`mailto:${resume.header.email}`}>{resume.header.email}</a>
-      ),
-    });
-  links.forEach((l, i) => {
-    if (!l.label && !l.url) return;
-    contactItems.push({
-      key: `lnk${i}`,
-      node: l.url ? <a href={l.url}>{l.label || l.url}</a> : <span>{l.label}</span>,
-    });
-  });
+  const contactItems = (resume.header.fields ?? [])
+    .filter((f) => !f.hidden)
+    .map((f) => ({
+      key: f.id,
+      node: f.url
+        ? <a href={f.url}>{f.label || f.url}</a>
+        : <span>{f.label}</span>,
+    }));
 
   return (
     <article className={`page ${fontClass}`}>

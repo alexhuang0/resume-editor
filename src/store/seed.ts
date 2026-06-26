@@ -3,19 +3,19 @@ import { newId } from "./schema";
 
 export function makeSeedResume(name = "Default"): Resume {
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     id: newId("r"),
     name,
     updatedAt: new Date().toISOString(),
     font: "latin-modern",
     header: {
       fullName: "Jake Ryan",
-      location: "123 Street Name, Town, State 12345",
-      email: "jake@su.edu",
-      phone: "123-456-7890",
-      links: [
-        { label: "linkedin.com/in/jake", url: "https://linkedin.com/in/jake" },
-        { label: "github.com/jake", url: "https://github.com/jake" },
+      fields: [
+        { id: newId("hf"), label: "123 Street Name, Town, State 12345" },
+        { id: newId("hf"), label: "123-456-7890" },
+        { id: newId("hf"), label: "jake@su.edu", url: "mailto:jake@su.edu" },
+        { id: newId("hf"), label: "linkedin.com/in/jake", url: "https://linkedin.com/in/jake" },
+        { id: newId("hf"), label: "github.com/jake", url: "https://github.com/jake" },
       ],
     },
     sections: [

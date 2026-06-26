@@ -21,6 +21,10 @@ export function useEditorShortcuts() {
       } else if (focused.kind === "item") {
         e.preventDefault();
         store.getState().addBullet(focused.sectionId, focused.itemId);
+      } else if (focused.kind === "header-field") {
+        e.preventDefault();
+        const id = store.getState().addHeaderField(focused.fieldId);
+        useUiStore.getState().setFocus({ kind: "header-field", fieldId: id });
       }
     },
     { enableOnFormTags: ["textarea", "input"] },
@@ -41,6 +45,10 @@ export function useEditorShortcuts() {
         const variant = r.variants.find((v) => v.id === r.currentVariantId);
         const section = variant?.sections.find((s) => s.id === focused.sectionId);
         if (section) store.getState().addItem(section.id);
+      } else if (focused.kind === "header-field") {
+        e.preventDefault();
+        const id = store.getState().addHeaderField(focused.fieldId);
+        useUiStore.getState().setFocus({ kind: "header-field", fieldId: id });
       }
     },
     { enableOnFormTags: ["textarea", "input"] },
@@ -58,6 +66,10 @@ export function useEditorShortcuts() {
         s.duplicateItem(focused.sectionId, focused.itemId);
       else if (focused.kind === "bullet")
         s.duplicateBullet(focused.sectionId, focused.itemId, focused.bulletId);
+      else if (focused.kind === "header-field") {
+        const newId = s.duplicateHeaderField(focused.fieldId);
+        if (newId) useUiStore.getState().setFocus({ kind: "header-field", fieldId: newId });
+      }
     },
     { enableOnFormTags: ["textarea", "input"] },
     [focused]
@@ -74,6 +86,8 @@ export function useEditorShortcuts() {
         s.toggleItemHidden(focused.sectionId, focused.itemId);
       else if (focused.kind === "bullet")
         s.toggleBulletHidden(focused.sectionId, focused.itemId, focused.bulletId);
+      else if (focused.kind === "header-field")
+        s.toggleHeaderFieldHidden(focused.fieldId);
     },
     { enableOnFormTags: ["textarea", "input"] },
     [focused]
@@ -113,6 +127,14 @@ export function useEditorShortcuts() {
       const next = [...ids];
       [next[idx], next[target]] = [next[target], next[idx]];
       s.reorderBullets(focused.sectionId, focused.itemId, next);
+    } else if (focused.kind === "header-field") {
+      const ids = variant.header.fields.map((x) => x.id);
+      const idx = ids.indexOf(focused.fieldId);
+      const target = idx + direction;
+      if (idx === -1 || target < 0 || target >= ids.length) return;
+      const next = [...ids];
+      [next[idx], next[target]] = [next[target], next[idx]];
+      s.reorderHeaderFields(next);
     }
   };
 

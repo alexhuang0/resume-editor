@@ -1,5 +1,5 @@
 import type { Library, Resume } from "../store/schema";
-import { LibrarySchema, ResumeSchema, newId } from "../store/schema";
+import { CURRENT_SCHEMA_VERSION, LibrarySchema, ResumeSchema, newId } from "../store/schema";
 
 function safeFilename(name: string): string {
   return (
@@ -28,7 +28,7 @@ export function exportResumeAsJsonFile(resume: Resume): void {
 }
 
 export function exportLibraryAsJsonFile(variants: Resume[]): void {
-  const lib: Library = { schemaVersion: 1, variants };
+  const lib: Library = { schemaVersion: CURRENT_SCHEMA_VERSION, variants };
   download(`resume-library.json`, JSON.stringify(lib, null, 2));
 }
 
@@ -38,6 +38,45 @@ export function exportMarkdownFile(resume: Resume, markdown: string): void {
     markdown,
     "text/markdown;charset=utf-8"
   );
+}
+
+function migrateImportedResumeV1toV2(v: unknown): unknown {
+  const r = v as Record<string, unknown>;
+  const header = r.header as Record<string, unknown> | undefined;
+  if (!header || Array.isArray(header.fields)) {
+    return { ...r, schemaVersion: 2 };
+  }
+  const fields: { id: string; label: string; url?: string }[] = [];
+  if (typeof header.location === "string" && header.location)
+    fields.push({ id: newId("hf"), label: header.location });
+  if (typeof header.phone === "string" && header.phone)
+    fields.push({ id: newId("hf"), label: header.phone });
+  if (typeof header.email === "string" && header.email)
+    fields.push({ id: newId("hf"), label: header.email, url: `mailto:${header.email}` });
+  const links = Array.isArray(header.links)
+    ? (header.links as { label?: string; url?: string }[])
+    : [];
+  for (const l of links) {
+    if (!l.label && !l.url) continue;
+    fields.push({ id: newId("hf"), label: l.label ?? l.url ?? "", url: l.url });
+  }
+  return { ...r, schemaVersion: 2, header: { fullName: header.fullName ?? "", fields } };
+}
+
+function migrateImportToV2(data: unknown): unknown {
+  if (typeof data !== "object" || data === null) return data;
+  const d = data as Record<string, unknown>;
+  if (d.schemaVersion === 1 && Array.isArray(d.variants)) {
+    return {
+      ...d,
+      schemaVersion: 2,
+      variants: (d.variants as unknown[]).map(migrateImportedResumeV1toV2),
+    };
+  }
+  if (d.schemaVersion === 1 && d.header) {
+    return migrateImportedResumeV1toV2(d);
+  }
+  return data;
 }
 
 export type ParsedImport =
@@ -52,6 +91,8 @@ export function parseImport(raw: string): ParsedImport {
   } catch (e) {
     return { kind: "error", messages: [`Invalid JSON: ${(e as Error).message}`] };
   }
+
+  data = migrateImportToV2(data);
 
   const libParsed = LibrarySchema.safeParse(data);
   if (libParsed.success) {

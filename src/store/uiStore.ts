@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 export type FocusNode =
   | { kind: "header" }
+  | { kind: "header-field"; fieldId: string }
   | { kind: "section"; sectionId: string }
   | { kind: "item"; sectionId: string; itemId: string }
   | { kind: "bullet"; sectionId: string; itemId: string; bulletId: string }
