@@ -118,6 +118,13 @@
   padding: 0;
 }
 
+/* Inline anchors inherit the surrounding text color so they don't disrupt the
+   monochrome LaTeX aesthetic, but remain underlined for visual feedback. */
+.page a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 /* Skills section: render each item as a single line "Category: items". */
 .r-skill-row {
   margin: 0;

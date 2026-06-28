@@ -1,4 +1,5 @@
 import type { Item, Resume, Section } from "../../store/schema";
+import { renderInline } from "../../utils/inlineMarkdown";
 
 type Props = { resume: Resume };
 
@@ -27,21 +28,21 @@ function ItemBlock({ item }: { item: Item }) {
       {showHeader && (
         <div className="r-item-header">
           <div className="r-item-headerL">
-            {item.heading && <span className="r-heading">{item.heading}</span>}
+            {item.heading && <span className="r-heading">{renderInline(item.heading)}</span>}
             {item.subheading && (
-              <span className="r-subheading">{item.subheading}</span>
+              <span className="r-subheading">{renderInline(item.subheading)}</span>
             )}
           </div>
           <div className="r-item-headerR">
-            {item.location && <span className="r-location">{item.location}</span>}
-            {item.dateRange && <span className="r-date">{item.dateRange}</span>}
+            {item.location && <span className="r-location">{renderInline(item.location)}</span>}
+            {item.dateRange && <span className="r-date">{renderInline(item.dateRange)}</span>}
           </div>
         </div>
       )}
       {bullets.length > 0 && (
         <ul className="r-bullets">
           {bullets.map((b) => (
-            <li key={b.id}>{b.text}</li>
+            <li key={b.id}>{renderInline(b.text)}</li>
           ))}
         </ul>
       )}
@@ -55,7 +56,7 @@ function SkillRow({ item }: { item: Item }) {
   return (
     <p className="r-skill-row">
       {item.heading && <span className="r-heading">{item.heading}: </span>}
-      {bullet?.text}
+      {bullet?.text ? renderInline(bullet.text) : null}
     </p>
   );
 }
