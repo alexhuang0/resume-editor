@@ -37,11 +37,25 @@ dnd-kit `SortableContext` is set up at all three levels (`SectionList`, `Section
 
 `src/store/schema.ts` defines the canonical `Resume` shape with `zod`. This schema is **the contract with Claude.ai** — the user exports JSON, pastes it into Claude with a job posting, and re-imports Claude's modified JSON. When changing the schema:
 
-- Bump `schemaVersion` (currently `1`) and add a migration in `exporters/importExport.ts::parseImport`.
+- Bump `schemaVersion` (currently `2`) and add a migration in `exporters/importExport.ts::parseImport`.
 - Keep field names obvious and stable so an LLM can edit the JSON in place.
 - Don't add UI-only fields here — those belong in `uiStore`.
 
 `parseImport` auto-detects whether the file is a single `Resume` or a full `Library` (`Export all` backup).
+
+### Inline formatting in text fields
+
+All text fields (bullet text, heading, subheading, location, dateRange, skill row content) support markdown inline syntax, parsed by `src/utils/inlineMarkdown.tsx` at render time:
+
+| Syntax | Output |
+|---|---|
+| `[text](url)` | `<a>` — bare domains auto-promoted to `https://` |
+| `**text**` | `<strong>` |
+| `*text*` | `<em>` |
+
+The syntax is stored as-is in the existing `string` fields — **no schema changes**. This makes Claude.ai round-trips natural since it natively outputs markdown. ATS-safe: only standard semantic HTML elements are used; text content is always extractable by parsers.
+
+`toMarkdown.ts` requires no changes — inline markdown in bullet text is already valid markdown output.
 
 ### Preview = print
 
