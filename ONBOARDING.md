@@ -74,6 +74,8 @@ npm run dev          # http://localhost:5173
 
 **Why Latin Modern with a Georgia toggle?** Latin Modern Roman matches Jake's LaTeX output visually. Georgia is the escape hatch when a picky ATS parser chokes on the embedded Latin Modern font — ubiquitous serif, never refused.
 
+**Why markdown syntax in string fields instead of a rich-text editor?** Inline formatting (`[text](url)`, `**bold**`, `*italic*`) is stored as literal markdown syntax in the existing `string` fields — no schema change, no new node types. This keeps the JSON readable to an LLM (Claude.ai natively outputs markdown) and avoids a contentEditable editor or a serialisation layer. The parser in `src/utils/inlineMarkdown.tsx` converts it to `<a>`, `<strong>`, `<em>` at render time. ATS-safe because those are standard semantic HTML elements.
+
 **Why three editor panes instead of WYSIWYG?** WYSIWYG editing of a print-fidelity document is hard to get right and would conflict with drag-to-reorder + hide toggles. Split view (sidebar | editor | preview) is boring but fast.
 
 ---
@@ -88,7 +90,8 @@ Use this after `npm install` to confirm everything still works before making rea
 4. Drag a section to reorder. Drag a bullet to a new position within an item.
 5. Toggle hide (eye icon) on a bullet. Preview drops it; the bullet stays in the editor with strikethrough.
 6. **Export JSON** the active variant. Open the file, eyeball the schema — you should see `header.fields[]` (not bare `email`/`phone` fields) and `schemaVersion: 2`. Click **Import JSON**, choose "add as new variant" — preview is identical.
-7. `Cmd+P` → Save as PDF. Open the PDF, `Cmd+A` `Cmd+C`, paste into a plain-text editor — should be linear, selectable, ATS-parseable.
+7. Type `[Google](https://google.com)` into a bullet, `**bold**` into another, `*italic*` into a third. Preview should render an underlined link, bold text, and italic text respectively.
+8. `Cmd+P` → Save as PDF. Open the PDF, `Cmd+A` `Cmd+C`, paste into a plain-text editor — should be linear, selectable, ATS-parseable (link renders as anchor text only, no raw markdown syntax).
 
 If any of those steps fails, fix it before doing anything else.
 
@@ -106,7 +109,7 @@ Same vibe as §7 but more thorough — run this after a real code change:
 6. Export JSON of the active variant; re-import as a new variant; preview matches.
 7. Export all (library backup); import all on a fresh browser profile if you can; library restores.
 8. `Cmd+P` → Save as PDF. Visually compare against a known-good PDF (or the Jake's LaTeX original if you still have one).
-9. PDF text extraction: open the PDF, `Cmd+A` `Cmd+C`, paste — confirm linear and clean.
+9. PDF text extraction: open the PDF, `Cmd+A` `Cmd+C`, paste — confirm linear and clean. Inline-formatted text (`**bold**`, `[text](url)`) should appear as plain text with no markdown syntax leaking into the paste.
 10. **Markdown export** reads well; no IDs or internal cruft leaked.
 
 Done = all 10 pass.
@@ -124,6 +127,7 @@ Done = all 10 pass.
 | Editor components | `src/components/Editor/` |
 | Variants sidebar | `src/components/VariantsSidebar.tsx` |
 | Renderer (preview + print) | `src/components/Preview/ResumePreview.tsx` |
+| Inline text formatter | `src/utils/inlineMarkdown.tsx` |
 | JSON import/export | `src/exporters/importExport.ts` |
 | Markdown export | `src/exporters/toMarkdown.ts` |
 | Keyboard shortcuts | `src/hooks/useShortcuts.ts` |
