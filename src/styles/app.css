@@ -36,10 +36,96 @@ input, textarea {
 }
 
 .app {
-  display: grid;
-  grid-template-columns: 240px minmax(420px, 1fr) minmax(8.5in, auto);
+  display: flex;
+  flex-direction: row;
   height: 100vh;
   overflow: hidden;
+}
+
+/* ── Pane wrappers ─────────────────────────────────────────────────────── */
+
+.pane-wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.pane-sidebar  { flex: 0 0 240px; }
+.pane-editor   { flex: 1 1 420px; min-width: 420px; }
+.pane-preview  { flex: 0 0 auto; }
+
+.pane-wrapper.pane-minimized {
+  flex: 0 0 32px !important;
+  width: 32px;
+}
+
+/* Pane bar: drag handle + label + minimize button */
+.pane-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 6px;
+  flex-shrink: 0;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  user-select: none;
+}
+
+.pane-drag-handle {
+  cursor: grab;
+  color: var(--muted);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1;
+}
+.pane-drag-handle:hover  { background: var(--panel-2); }
+.pane-drag-handle:active { cursor: grabbing; }
+
+.pane-label {
+  flex: 1;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pane-min-btn { flex-shrink: 0; }
+
+/* Minimized strip: rotate bar 90° so label runs vertically */
+.pane-wrapper.pane-minimized .pane-bar {
+  flex-direction: column-reverse;
+  height: 100%;
+  width: 32px;
+  border-bottom: none;
+  border-right: 1px solid var(--border);
+  padding: 6px 0;
+}
+
+.pane-wrapper.pane-minimized .pane-label {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  text-overflow: clip;
+  white-space: normal;
+}
+
+/* Pane content: fills remaining height */
+.pane-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pane-content > * {
+  flex: 1;
+  min-height: 0;
 }
 
 /* Sidebar */
@@ -410,7 +496,7 @@ textarea.row-input {
     display: block;
     height: auto;
   }
-  .sidebar, .editor, .preview-toolbar, .toasts {
+  .pane-bar, .pane-sidebar, .pane-editor, .preview-toolbar, .toasts {
     display: none !important;
   }
   .preview {

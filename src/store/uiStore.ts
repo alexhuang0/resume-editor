@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+export type PaneId = "sidebar" | "editor" | "preview";
+
 export type FocusNode =
   | { kind: "header" }
   | { kind: "header-field"; fieldId: string }
@@ -18,10 +20,14 @@ type UiState = {
   focus: FocusNode;
   collapsedSections: Record<string, boolean>;
   toasts: Toast[];
+  paneOrder: PaneId[];
+  minimizedPanes: Record<PaneId, boolean>;
   setFocus: (f: FocusNode) => void;
   toggleSectionCollapsed: (id: string) => void;
   pushToast: (t: Omit<Toast, "id">) => void;
   dismissToast: (id: string) => void;
+  setPaneOrder: (order: PaneId[]) => void;
+  togglePaneMinimized: (pane: PaneId) => void;
 };
 
 let toastCounter = 0;
@@ -30,6 +36,8 @@ export const useUiStore = create<UiState>((set) => ({
   focus: null,
   collapsedSections: {},
   toasts: [],
+  paneOrder: ["sidebar", "editor", "preview"],
+  minimizedPanes: { sidebar: false, editor: false, preview: false },
   setFocus: (focus) => set({ focus }),
   toggleSectionCollapsed: (id) =>
     set((s) => ({
@@ -48,4 +56,9 @@ export const useUiStore = create<UiState>((set) => ({
   },
   dismissToast: (id) =>
     set((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) })),
+  setPaneOrder: (order) => set({ paneOrder: order }),
+  togglePaneMinimized: (pane) =>
+    set((s) => ({
+      minimizedPanes: { ...s.minimizedPanes, [pane]: !s.minimizedPanes[pane] },
+    })),
 }));
