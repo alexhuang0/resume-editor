@@ -25,3 +25,22 @@ My Feedback and Questions:
 - Is everything based off of the JSON, thus making it portable if I decide to migrate to a different web app?
 
 ---
+
+Create a skill that will do the following for the unstaged changes
+- Run and test that the changes work as intented
+- update claude md
+- update documentation if outdated
+- commit the feature
+If any step is failed, rollback and output an explanation
+
+---
+
+My goal is to start with an unrefined resume (following this project's schema) and have Claude.ai filter it to create variants.
+
+All resume related information is in '/Users/gatallah/Dev/resume' and '/Users/gatallah/Dev/resume copy'. Parse the latter then the former, sequentially. Don't omit information, including: commented out, locked out by conditional statement. There may be other inclusive conditions not mentioned, if suspect one, pause parsing and ask me if I'd like you include it.
+
+Ask questions to clear all ambiguities
+
+---
+
+The resume "master-resume.json" has the schema described in "schema.ts"

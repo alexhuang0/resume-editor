@@ -15,14 +15,14 @@ npm run lint      # oxlint
 npm run preview   # serve the built dist/
 ```
 
-There is no test suite. The verification path is manual: walk through the 10-step checklist in `~/.claude/plans/i-apply-to-many-sunny-hearth.md`.
+There is no test suite. The verification path is manual: walk through the 10-step checklist in [ONBOARDING.md](./ONBOARDING.md) §8.
 
 ## Architecture
 
-Three-pane SPA: `VariantsSidebar | Editor (HeaderEditor + SectionList) | ResumePreview`. State lives in two zustand stores:
+Three-pane SPA: `VariantsSidebar | Editor (HeaderEditor + SectionList) | ResumePreview`. Each pane is wrapped in a `SortablePane` (defined in `src/App.tsx`) with a top bar containing a drag handle and a minimize (−/+) button. Pane order is a horizontal `SortableContext` at the app root. Minimized panes collapse to a 32px strip with a rotated vertical label. State lives in two zustand stores:
 
 - **`src/store/resumeStore.ts`** — the variants library, persisted to `localStorage` under `resume-editor:v1`. All resume content mutations go through this store's actions (`addBullet`, `reorderItems`, `toggleSectionHidden`, etc.). Use `useCurrentResume()` to read the active variant.
-- **`src/store/uiStore.ts`** — ephemeral UI state: `focus` (which node the keyboard shortcuts target), collapsed sections, toast queue. **Never** persisted, never exported.
+- **`src/store/uiStore.ts`** — ephemeral UI state: `focus` (which node the keyboard shortcuts target), collapsed sections, toast queue, plus `paneOrder: PaneId[]` and `minimizedPanes: Record<PaneId, boolean>` for the pane layout. **Never** persisted, never exported — pane layout resets on reload by design.
 
 ### Three-level nesting
 
@@ -59,7 +59,7 @@ The syntax is stored as-is in the existing `string` fields — **no schema chang
 
 ### Preview = print
 
-`src/styles/resume.css` styles the `.page` element for both screen preview and `@media print`. `src/styles/app.css` hides everything except `.page` when printing. PDF export is just `window.print()` — no PDF library. This is intentional: the browser produces real text glyphs (ATS-parseable), embeds the font, and gives the best fidelity for the LaTeX-style look.
+`src/styles/resume.css` styles the `.page` element for both screen preview and `@media print`. `src/styles/app.css` hides everything except `.page` when printing — the print rules target the pane chrome (`.pane-bar`, `.pane-sidebar`, `.pane-editor`) by class, so if you rename pane wrapper classes, update the print media query too. PDF export is just `window.print()` — no PDF library. This is intentional: the browser produces real text glyphs (ATS-parseable), embeds the font, and gives the best fidelity for the LaTeX-style look.
 
 ### ATS-friendliness is a hard requirement
 

@@ -33,9 +33,11 @@ The resume has two flexible parts:
 Two zustand stores:
 
 - `resumeStore` — variants library, persisted to `localStorage` under `resume-editor:v1`. **Source of truth for content.**
-- `uiStore` — focus, collapsed sections, toasts. **Never persisted, never exported.** Keeps the JSON clean.
+- `uiStore` — focus, collapsed sections, toasts, plus **pane layout** (`paneOrder`, `minimizedPanes`). **Never persisted, never exported.** Pane layout resetting on reload is intentional: it's a viewing preference, not part of your resume.
 
-Preview and print share the *same* CSS (`src/styles/resume.css`). The `@media print` rule in `styles/app.css` hides the sidebar and editor so only the rendered page goes to the printer. PDF export is `window.print()` — no library.
+The three panes (Variants, Editor, Preview) have a top bar with a drag handle and a minimize button. Drag horizontally to reorder them; minimize collapses a pane to a 32px vertical strip. Handy when you want the preview to dominate before printing.
+
+Preview and print share the *same* CSS (`src/styles/resume.css`). The `@media print` rule in `styles/app.css` hides the pane bars and non-preview wrappers so only the rendered page goes to the printer. PDF export is `window.print()` — no library.
 
 For the full architecture, read [CLAUDE.md](./CLAUDE.md).
 
@@ -85,13 +87,14 @@ npm run dev          # http://localhost:5173
 Use this after `npm install` to confirm everything still works before making real changes:
 
 1. Open the app. The Default variant is seeded with Jake's-resume content. Right pane shows the rendered page.
-2. Edit a bullet in Experience. Preview updates live. Reload — your edit persisted.
-3. In the Header, drag a contact field to reorder it. Toggle hide (eye icon) on one — preview drops it from the contact line; the field stays in the editor dimmed.
-4. Drag a section to reorder. Drag a bullet to a new position within an item.
-5. Toggle hide (eye icon) on a bullet. Preview drops it; the bullet stays in the editor with strikethrough.
-6. **Export JSON** the active variant. Open the file, eyeball the schema — you should see `header.fields[]` (not bare `email`/`phone` fields) and `schemaVersion: 2`. Click **Import JSON**, choose "add as new variant" — preview is identical.
-7. Type `[Google](https://google.com)` into a bullet, `**bold**` into another, `*italic*` into a third. Preview should render an underlined link, bold text, and italic text respectively.
-8. `Cmd+P` → Save as PDF. Open the PDF, `Cmd+A` `Cmd+C`, paste into a plain-text editor — should be linear, selectable, ATS-parseable (link renders as anchor text only, no raw markdown syntax).
+2. Edit a bullet in Experience. Preview updates live. Reload — your edit persisted, and pane layout reset (that's intentional; pane order/minimized state is ephemeral).
+3. Drag the Editor pane's top bar to swap its position with the Preview pane. Minimize the Variants pane using the `−` button — it collapses to a vertical strip. Expand it again.
+4. In the Header, drag a contact field to reorder it. Toggle hide (eye icon) on one — preview drops it from the contact line; the field stays in the editor dimmed.
+5. Drag a section to reorder. Drag a bullet to a new position within an item.
+6. Toggle hide (eye icon) on a bullet. Preview drops it; the bullet stays in the editor with strikethrough.
+7. **Export JSON** the active variant. Open the file, eyeball the schema — you should see `header.fields[]` (not bare `email`/`phone` fields) and `schemaVersion: 2`. Click **Import JSON**, choose "add as new variant" — preview is identical.
+8. Type `[Google](https://google.com)` into a bullet, `**bold**` into another, `*italic*` into a third. Preview should render an underlined link, bold text, and italic text respectively.
+9. `Cmd+P` → Save as PDF. Open the PDF, `Cmd+A` `Cmd+C`, paste into a plain-text editor — should be linear, selectable, ATS-parseable (link renders as anchor text only, no raw markdown syntax).
 
 If any of those steps fails, fix it before doing anything else.
 
