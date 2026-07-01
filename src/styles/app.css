@@ -499,6 +499,10 @@ textarea.row-input {
   .pane-bar, .pane-sidebar, .pane-editor, .preview-toolbar, .toasts {
     display: none !important;
   }
+  .pane-wrapper, .pane-content {
+    height: auto;
+    overflow: visible;
+  }
   .preview {
     overflow: visible;
     padding: 0;
