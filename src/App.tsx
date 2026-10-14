@@ -13,6 +13,7 @@ import {
   arrayMove,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Fragment, useRef } from "react";
 import { useResumeStore, useCurrentResume } from "./store/resumeStore";
 import { useUiStore } from "./store/uiStore";
 import type { PaneId } from "./store/uiStore";
@@ -20,6 +21,7 @@ import { VariantsSidebar } from "./components/VariantsSidebar";
 import { HeaderEditor } from "./components/Editor/HeaderEditor";
 import { SectionList } from "./components/Editor/SectionList";
 import { ResumePreview } from "./components/Preview/ResumePreview";
+import type { Zoom } from "./components/Preview/previewScale";
 import { Toasts } from "./components/Toasts";
 import { useEditorShortcuts } from "./hooks/useShortcuts";
 import { exportMarkdownFile } from "./exporters/importExport";
@@ -30,14 +32,92 @@ type SortablePaneProps = {
   id: PaneId;
   label: string;
   minimized: boolean;
+  /**
+   * Explicit width in px from `uiStore.paneWidths`, or `undefined` for flex
+   * sizing (1.2). See the `flex` line in the style object below.
+   */
+  width: number | undefined;
   onToggleMinimize: () => void;
   children: React.ReactNode;
+};
+
+/**
+ * Resize floors in px, so no pane can be dragged to zero (1.3).
+ *
+ * `editor` mirrors `.pane-editor { min-width: 420px }` in app.css and must stay
+ * in step with it: the CSS refuses to honor anything smaller, so a lower floor
+ * here would write a width the pane ignores and the divider would visibly
+ * desync from the pane edge. The other two declare no `min-width`, so these are
+ * floors rather than mirrors — both sit below their flex basis (`sidebar` 240px,
+ * `preview` auto) so those panes can still be narrowed, just not to nothing.
+ */
+const PANE_MIN_WIDTH_PX: Record<PaneId, number> = {
+  sidebar: 160,
+  editor: 420,
+  preview: 240,
+};
+
+/**
+ * Travel below this many px in a single gesture counts as a click, not a drag.
+ *
+ * This is what keeps the double-click reset (1.2) from fighting the drag (1.1):
+ * a double-click is two full pointerdown/pointerup pairs, and a hand resting on
+ * a mouse jitters a pixel or two between them, so without a slop band the reset
+ * gesture would also write a width on its way through.
+ */
+const DIVIDER_CLICK_SLOP_PX = 3;
+
+/**
+ * The zoom control's options (2.2), Fit first because it is the default.
+ *
+ * `Zoom` is half string and half number, and a `<select>` only speaks strings,
+ * so the mapping is a lookup table rather than a cast: `String(0.5)` round-trips
+ * through `Number` fine, but a table keeps the parse total — an unrecognized
+ * value falls back to Fit instead of becoming `NaN` and scaling the page away.
+ */
+const ZOOM_OPTIONS: { value: string; label: string; zoom: Zoom }[] = [
+  { value: "fit", label: "Fit", zoom: "fit" },
+  { value: "0.5", label: "50%", zoom: 0.5 },
+  { value: "0.75", label: "75%", zoom: 0.75 },
+  { value: "1", label: "100%", zoom: 1 },
+];
+
+function zoomOptionValue(zoom: Zoom): string {
+  return ZOOM_OPTIONS.find((o) => o.zoom === zoom)?.value ?? "fit";
+}
+
+function parseZoomOptionValue(value: string): Zoom {
+  return ZOOM_OPTIONS.find((o) => o.value === value)?.zoom ?? "fit";
+}
+
+/** In-flight divider drag. Captured on `pointerdown`, cleared on `pointerup`. */
+type PaneDrag = {
+  /** The pane to the left of the divider — the one whose width we are writing. */
+  pane: PaneId;
+  /** Pointer x at the start of the gesture. */
+  startX: number;
+  /** The left pane's laid-out width at the start of the gesture. */
+  startWidth: number;
+  /** The left pane's own floor. */
+  minWidth: number;
+  /**
+   * Where the *right* pane's floor stops the gesture. Dragging right grows the
+   * left pane out of the right pane's width, so clamping only the pane being
+   * written would still let its neighbour be squeezed to zero.
+   */
+  maxWidth: number;
+  /**
+   * Set once the pointer travels past `DIVIDER_CLICK_SLOP_PX`. Until then the
+   * gesture is still a candidate click and writes nothing.
+   */
+  moved: boolean;
 };
 
 function SortablePane({
   id,
   label,
   minimized,
+  width,
   onToggleMinimize,
   children,
 }: SortablePaneProps) {
@@ -47,9 +127,26 @@ function SortablePane({
     <div
       ref={setNodeRef}
       style={{
+        // dnd-kit's reorder transform shares this object, so the width has to
+        // be merged into it rather than replacing it.
         transform: CSS.Transform.toString(transform),
         transition,
         opacity: isDragging ? 0.4 : undefined,
+        // `0 0` and not `0 1`: a grow or shrink factor would let the flex
+        // algorithm move the pane off the width the drag just wrote, which is
+        // the one thing an explicit width has to rule out (1.1).
+        //
+        // `undefined` is what makes the fall-through work — React omits the
+        // property entirely, so an unset pane is still sized by app.css
+        // (`.pane-sidebar` 0 0 240px, `.pane-editor` 1 1 420px) and the
+        // double-click reset (1.2) is a plain return to that.
+        //
+        // Two stylesheet rules deliberately outrank this value even while it
+        // is set: `.pane-minimized`'s `flex: 0 0 32px !important` wins on
+        // `!important`, so a stored width cannot un-collapse a minimized pane;
+        // and `.pane-editor`'s `min-width: 420px` floors the basis regardless,
+        // which is why PANE_MIN_WIDTH_PX mirrors it rather than undercutting it.
+        flex: width !== undefined ? `0 0 ${width}px` : undefined,
       }}
       className={`pane-wrapper pane-${id}${minimized ? " pane-minimized" : ""}`}
     >
@@ -82,12 +179,126 @@ function App() {
   const setFont = useResumeStore((s) => s.setFont);
   const paneOrder = useUiStore((s) => s.paneOrder);
   const minimizedPanes = useUiStore((s) => s.minimizedPanes);
+  // `setPaneWidth` replaces this object on every pointermove, so subscribing
+  // here is what re-renders the panes mid-drag — that live reflow is the
+  // requirement (1.1), not an accident worth memoizing away.
+  const paneWidths = useUiStore((s) => s.paneWidths);
   const setPaneOrder = useUiStore((s) => s.setPaneOrder);
   const togglePaneMinimized = useUiStore((s) => s.togglePaneMinimized);
+  const setPaneWidth = useUiStore((s) => s.setPaneWidth);
+  // The select lives here and the scaler lives in `ResumePreview`, so the value
+  // round-trips through `uiStore` (design §4.6).
+  const previewZoom = useUiStore((s) => s.previewZoom);
+  const setPreviewZoom = useUiStore((s) => s.setPreviewZoom);
+
+  // Kept in a ref, not state: the drag writes to `uiStore` on every move, and
+  // a second re-render per move buys nothing.
+  const paneDrag = useRef<PaneDrag | null>(null);
+  // Outlives `paneDrag`, which is cleared on pointerup: `dblclick` fires after
+  // the second pointerup of the pair, so this is the only place it can still
+  // learn whether that gesture resized anything.
+  const lastGestureWasDrag = useRef(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
   );
+
+  const handleDividerPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return;
+    const divider = e.currentTarget;
+    const pane = divider.dataset.leftPane as PaneId | undefined;
+    // The divider is rendered as a flex sibling directly after its left pane,
+    // so the previous element sibling *is* that pane — and it stays correct
+    // when `paneOrder` changes, since the divider moves with it.
+    const leftPane = divider.previousElementSibling;
+    if (!pane || !(leftPane instanceof HTMLElement)) return;
+    if (!leftPane.classList.contains("pane-wrapper")) return;
+
+    // Same reasoning in the other direction: the divider sits directly before
+    // the right-hand pane, and `paneOrder` names it, so both stay correct
+    // across a reorder.
+    const rightPaneEl = divider.nextElementSibling;
+    const rightPane = paneOrder[paneOrder.indexOf(pane) + 1];
+    const startWidth = leftPane.offsetWidth;
+    const minWidth = PANE_MIN_WIDTH_PX[pane];
+    const maxWidth =
+      rightPane !== undefined && rightPaneEl instanceof HTMLElement
+        ? Math.max(
+            minWidth,
+            startWidth + (rightPaneEl.offsetWidth - PANE_MIN_WIDTH_PX[rightPane])
+          )
+        : Number.POSITIVE_INFINITY;
+
+    paneDrag.current = {
+      pane,
+      startX: e.clientX,
+      startWidth,
+      minWidth,
+      maxWidth,
+      moved: false,
+    };
+    // Pointer capture routes every subsequent move/up to the divider itself,
+    // so the drag survives the cursor leaving the 6px hit target — no
+    // document-level listeners, and nothing to leak on unmount.
+    divider.setPointerCapture(e.pointerId);
+    // The divider lives outside both panes' DOM subtrees, so this gesture can
+    // never reach the `⠿` handle's dnd-kit listeners. Stopping it anyway keeps
+    // that true if the tree is ever rearranged; preventDefault suppresses the
+    // text selection that otherwise follows the cursor across the panes.
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  const handleDividerPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = paneDrag.current;
+    if (!drag) return;
+    const dx = e.clientX - drag.startX;
+    // Latching, not per-move: once the gesture is a drag it stays one, so
+    // dragging back through the start point keeps writing instead of falling
+    // silent in the middle of the stroke.
+    if (!drag.moved) {
+      if (Math.abs(dx) <= DIVIDER_CLICK_SLOP_PX) return;
+      drag.moved = true;
+    }
+    const next = drag.startWidth + dx;
+    // Floor first, ceiling second: `maxWidth` is already floored to `minWidth`
+    // at pointerdown, so neither bound can win at the other's expense.
+    setPaneWidth(
+      drag.pane,
+      Math.min(drag.maxWidth, Math.max(drag.minWidth, next))
+    );
+  };
+
+  const handleDividerPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = paneDrag.current;
+    if (!drag) return;
+    lastGestureWasDrag.current = drag.moved;
+    paneDrag.current = null;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+  };
+
+  /**
+   * Double-click resets the left pane to flex sizing (1.2).
+   *
+   * `dblclick` is a high-level event the browser derives from the click pair,
+   * so it survives the `preventDefault()` the drag does on `pointerdown`, and
+   * it arrives *after* the second pointerup — meaning the clear always lands
+   * last and cannot be overwritten by a trailing move.
+   */
+  const handleDividerDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Two quick resize drags in a row also satisfy the browser's double-click
+    // timing. Treating that as a reset would throw away the width the user
+    // just dialled in, so an actual drag vetoes the reset.
+    if (lastGestureWasDrag.current) {
+      lastGestureWasDrag.current = false;
+      return;
+    }
+    const pane = e.currentTarget.dataset.leftPane as PaneId | undefined;
+    if (!pane) return;
+    setPaneWidth(pane, undefined);
+  };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -129,6 +340,20 @@ function App() {
               Export Markdown
             </button>
             <div className="right">
+              <span className="zoom-toggle">
+                <label htmlFor="preview-zoom">Zoom:</label>
+                <select
+                  id="preview-zoom"
+                  value={zoomOptionValue(previewZoom)}
+                  onChange={(e) => setPreviewZoom(parseZoomOptionValue(e.target.value))}
+                >
+                  {ZOOM_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </span>
               <span className="font-toggle">
                 Font:
                 <select
@@ -155,17 +380,46 @@ function App() {
         onDragEnd={handleDragEnd}
       >
         <SortableContext items={paneOrder} strategy={horizontalListSortingStrategy}>
-          {paneOrder.map((paneId) => (
-            <SortablePane
-              key={paneId}
-              id={paneId}
-              label={paneContent[paneId].label}
-              minimized={minimizedPanes[paneId]}
-              onToggleMinimize={() => togglePaneMinimized(paneId)}
-            >
-              {paneContent[paneId].node}
-            </SortablePane>
-          ))}
+          {paneOrder.map((paneId, idx) => {
+            const nextPaneId = paneOrder[idx + 1];
+            // A divider only exists between two adjacent non-minimized panes:
+            // none after the last pane, none beside a minimized one (1.1).
+            const showDivider =
+              nextPaneId !== undefined &&
+              !minimizedPanes[paneId] &&
+              !minimizedPanes[nextPaneId];
+            return (
+              <Fragment key={paneId}>
+                <SortablePane
+                  id={paneId}
+                  label={paneContent[paneId].label}
+                  minimized={minimizedPanes[paneId]}
+                  width={paneWidths[paneId]}
+                  onToggleMinimize={() => togglePaneMinimized(paneId)}
+                >
+                  {paneContent[paneId].node}
+                </SortablePane>
+                {showDivider && (
+                  // Sibling of the pane wrappers, outside either pane's DOM
+                  // subtree, so a resize gesture can never reach the `⠿`
+                  // reorder listeners inside a pane bar (1.5).
+                  <div
+                    className="pane-divider"
+                    data-left-pane={paneId}
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label={`Resize ${paneContent[paneId].label} pane`}
+                    onPointerDown={handleDividerPointerDown}
+                    onPointerMove={handleDividerPointerMove}
+                    onPointerUp={handleDividerPointerUp}
+                    onPointerCancel={handleDividerPointerUp}
+                    onDoubleClick={handleDividerDoubleClick}
+                    title="Drag to resize, double-click to reset"
+                  />
+                )}
+              </Fragment>
+            );
+          })}
         </SortableContext>
       </DndContext>
       <Toasts />

@@ -14,6 +14,9 @@
   line-height: 1.25;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
   margin: 0 auto;
+  /* No visual effect. Makes .page the offsetParent of its children so the
+     page-fit measurement can read last.offsetTop + last.offsetHeight. */
+  position: relative;
 }
 
 .page.font-system-serif {

@@ -53,7 +53,15 @@ input, textarea {
 
 .pane-sidebar  { flex: 0 0 240px; }
 .pane-editor   { flex: 1 1 420px; min-width: 420px; }
-.pane-preview  { flex: 0 0 auto; }
+/* The preview pane must be able to shrink below the 8.5in page it contains.
+   `flex: 0 0 auto` plus the default `min-width: auto` pinned it to the page
+   width, so on a narrow window the right edge of the resume was clipped by
+   `.pane-wrapper`'s `overflow: hidden` with no way to scroll to it. Growing
+   also lets the Editor/Preview divider rebalance: once the editor carries an
+   explicit `flex: 0 0 Npx` from a resize drag, this pane absorbs the slack.
+   A resized preview pane gets its own inline `flex: 0 0 Npx`, which outranks
+   this by design. */
+.pane-preview  { flex: 1 1 auto; min-width: 0; }
 
 .pane-wrapper.pane-minimized {
   flex: 0 0 32px !important;
@@ -113,6 +121,52 @@ input, textarea {
   transform: rotate(180deg);
   text-overflow: clip;
   white-space: normal;
+}
+
+/* ── Pane divider ──────────────────────────────────────────────────────── */
+
+/* The resize hit target. It gets its own 6px flex column between two pane
+   wrappers, which is what keeps 1.5 honest: the `⠿` reorder handle lives
+   inside a pane bar, so the two targets are in different boxes and never
+   overlap — a resize drag cannot start a reorder. 6px is wide enough to hit
+   without aiming and narrow enough not to read as a gutter. */
+.pane-divider {
+  /* `0 0`, not `0 1`: a 6px hit target that the flex algorithm is free to
+     shrink is not a 6px hit target. */
+  flex: 0 0 6px;
+  /* Anchors the ::before affordance below. The divider is already stretched
+     to full height by `.app`'s default `align-items: stretch`. */
+  position: relative;
+  cursor: col-resize;
+  /* A gray seam between two white pane bars: the visual separation from the
+     `⠿` glyph a few pixels to its right (1.5). */
+  background: var(--bg);
+  /* Without this a touch drag pans the pane instead of resizing it — the
+     browser claims the gesture for scrolling before `pointermove` fires. */
+  touch-action: none;
+  /* Pointer capture carries the drag well past these 6px, so suppress the
+     text selection that would otherwise sweep across both panes. */
+  user-select: none;
+}
+
+/* The grab affordance, centered in the target and inset below the 28px pane
+   bar so it reads as a pane edge rather than as part of the bar that holds
+   `⠿`. The hit target itself still spans the full pane height. */
+.pane-divider::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  border-radius: 1px;
+  background: transparent;
+}
+
+.pane-divider:hover::before,
+.pane-divider:active::before {
+  background: var(--accent);
 }
 
 /* Pane content: fills remaining height */
@@ -405,7 +459,10 @@ textarea.row-input {
 
 /* Preview pane */
 .preview {
-  overflow-y: auto;
+  /* Both axes, not just vertical: at 100% zoom in a narrow pane the page
+     overflows horizontally too, and that has to be scrollable rather than
+     clipped (requirement 2.3). */
+  overflow: auto;
   background: var(--bg);
   padding: 16px;
   border-left: 1px solid var(--border);
@@ -425,12 +482,55 @@ textarea.row-input {
   gap: 6px;
 }
 
-.font-toggle {
+/* Toolbar label + select pairs: the font picker and the zoom picker (2.2). */
+.font-toggle,
+.zoom-toggle {
   display: flex;
   gap: 4px;
   align-items: center;
   font-size: 12px;
   color: var(--muted);
+}
+
+/* Preview scaler (2.3). A transform is a paint-time operation, so the two
+   wrappers split the job: `.page-scaler` owns the box the scaled page occupies
+   in flow, `.page-scaled` owns the transform. `.page` is untouched — it keeps
+   its literal 8.5in x 11in so the printed page is unaffected. */
+.page-scaler {
+  /* Centering is deliberately the unsafe kind. `transform-origin: top center`
+     scales `.page-scaled` around the middle of its *pre-transform* box, so that
+     box has to sit centered in the pane before the transform or the fitted page
+     lands off-center with dead space down one side. `margin: 0 auto` and
+     `justify-content: safe center` both collapse to start alignment exactly
+     when the pre-transform page is wider than the pane — which is every fit
+     scale below 1, i.e. the case this exists for. */
+  display: flex;
+  /* `ResumePreview` overrides this inline with `flex-start` whenever the scaled
+     page is wider than the pane, because centered overflow puts the page's left
+     edge where scrolling cannot reach it (2.3). See the comment there. */
+  justify-content: center;
+  /* Not `stretch`: 2.4 writes a scaled height here, and stretching would
+     resize `.page-scaled` to it for no gain. */
+  align-items: flex-start;
+  /* `height` is written inline by `ResumePreview` (2.4): the page's laid-out
+     height x the scale, because the transform leaves the pre-transform box in
+     flow. It stays `auto` until the first measurement, which is correct at
+     scale 1. 2.6's print reset uses `!important`, which outranks the inline
+     value. */
+}
+
+.page-scaled {
+  /* Wrap `.page` tightly, neither growing nor shrinking, so 4.5's
+     `.page-overflow-rule` spans exactly the page width when it anchors here. */
+  flex: 0 0 auto;
+  /* Belt and braces for 4.5: the non-`none` transform below already makes this
+     a containing block for absolutely positioned children, but the rule would
+     silently escape to the viewport if the transform were ever refactored away
+     (design §4.6). */
+  position: relative;
+  transform-origin: top center;
+  /* `transform: scale(s)` is written inline from `computeScale`. 2.6's print
+     reset uses `!important`, which outranks the inline value. */
 }
 
 /* Toasts */
@@ -496,7 +596,9 @@ textarea.row-input {
     display: block;
     height: auto;
   }
-  .pane-bar, .pane-sidebar, .pane-editor, .preview-toolbar, .toasts {
+  /* `.pane-divider` is pane chrome, not content: it must leave no 6px gutter
+     in the printed page. */
+  .pane-bar, .pane-divider, .pane-sidebar, .pane-editor, .preview-toolbar, .toasts {
     display: none !important;
   }
   .pane-wrapper, .pane-content {
@@ -507,5 +609,28 @@ textarea.row-input {
     overflow: visible;
     padding: 0;
     border: none;
+  }
+  /* The two scaler wrappers are screen-only chrome (2.6, design §5.2). They
+     cannot be hidden — `.page` is inside them — so they are reset to a
+     pass-through box instead. Both properties they carry are written *inline*
+     by `ResumePreview`, so `!important` is what it takes to outrank them.
+
+     `height`: 2.4 writes the post-transform height here to fix the pane's
+     scroll extent. With no transform that number is a short box that would clip
+     the page, and the print flow has no scroll extent to fix.
+
+     `display`: `flex` exists only for the screen centering, which is pointless
+     at print — the page is laid out at its literal 8.5in inside an 8.5in sheet,
+     so there is no slack to center in. Going back to `block` also keeps `.page`
+     an ordinary block rather than a flex item, which is the better-supported
+     path if the content ever fragments across pages. It makes the inline
+     `justify-content` inert, so that needs no reset of its own. */
+  .page-scaler {
+    display: block;
+    height: auto !important;
+  }
+  /* Print at full size regardless of the on-screen zoom (2.6). */
+  .page-scaled {
+    transform: none !important;
   }
 }
