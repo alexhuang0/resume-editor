@@ -8,9 +8,9 @@ If you'd rather read code, jump to [CLAUDE.md](./CLAUDE.md) — that's the archi
 
 ## If you only read three things
 
-1. **The JSON in `src/store/schema.ts` is the canonical artifact.** Everything else (the UI, the PDF, the Markdown) is downstream. The whole point of this app is that you can hand that JSON to Claude.ai with a job posting and re-import Claude's edited JSON. Don't put UI-only fields in it.
+1. **The JSON in `src/store/schema.ts` is the canonical artifact.** Everything else (the UI, the PDF, the Markdown) is downstream. The whole point of this app is that you can hand that JSON to Claude.ai with a job posting and re-import Claude's edited JSON. The prompt and round-trip rules are in [PROMPTS.md](./PROMPTS.md). Don't put UI-only fields in it.
 2. **`hidden: true` is how you tailor — not deletion.** Every Section, Item, Bullet, and Header contact field has a `hidden` flag. Hidden nodes vanish from the preview/PDF/Markdown but stay in the JSON, so you can re-enable them for the next variant. Tailoring actions should toggle `hidden`, not splice arrays.
-3. **Before shipping a change, run the verification ritual.** There is no test suite by design (see below). The ritual is in §8.
+3. **Before shipping a change, run the verification ritual.** `npm test` (vitest) now covers the pure core, but the ritual in §8 still owns everything a unit test can't reach — PDF fidelity, drag-and-drop, ATS-parseability. Run both (see below).
 
 ---
 
@@ -59,7 +59,8 @@ npm run dev          # http://localhost:5173
 - **`Resume` schema (`src/store/schema.ts`) is the contract with Claude.ai.** Field names should be obvious to an LLM editing in place. Don't put UI ephemera here — that's `uiStore`'s job.
 - **The PDF must stay ATS-parseable.** No text inside SVG/images. No CSS columns or `<table>` for layout. Single-column flow. Contact info in the document body, not a print header/footer. Bullet markers via CSS `list-style` only.
 - **`hidden: true` removes from output, never from data.** This applies at every level: Section, Item, Bullet, and Header contact field. Tailoring actions (especially anything Claude does in the JSON) should toggle `hidden`, not delete. The user's mental model is "I'll need this for the *next* role."
-- **Bump `schemaVersion` if you change the shape.** Add a migration in both `parseImport` (`src/exporters/importExport.ts`) and the zustand `migrate` function in `resumeStore.ts`. Otherwise re-importing older JSON files or loading old localStorage data silently breaks. The v1→v2 bump (flexible header fields) is already done and is the reference example.
+- **The bank owns wording; the variant owns visibility and order.** A linked item stores no wording of its own — empty content fields, `bullets: []` — and reads its text from the bank entry at render time (`src/store/resolve.ts`). What the variant keeps on top is `hidden`, `hiddenBulletIds`, and `bulletOrder`. So hiding or reordering a bullet on a linked item is variant-local and keeps the link; editing wording auto-detaches the item first (it becomes its own local copy). Don't write wording onto a linked item or the resolver will ignore it.
+- **Bump `schemaVersion` if you change the shape.** Add a migration step in `src/store/migrations.ts` and wire it into both `parseImport` (`src/exporters/importExport.ts`) and the zustand `migrate` function in `resumeStore.ts`. Otherwise re-importing older JSON files or loading old localStorage data silently breaks. Current `schemaVersion` is 3 (`CURRENT_SCHEMA_VERSION` in `src/store/schema.ts`). The reference example is the v2→v3 bump (the item bank): `migrateResumeV2toV3` just sets `schemaVersion: 3` and rewrites nothing — a v2 item has no `link`, so the resolver renders it from its own fields exactly as before — and `migratePersistedLibrary` chains v1→v2→v3 in one pass while defaulting `bank: []` for any pre-bank state. Keep each step small and one-way (version N → N+1) so the chain stays readable.
 - **Array index = render order, everywhere.** Don't introduce a parallel `order: number` field — order *is* the array.
 
 ---
@@ -70,7 +71,9 @@ npm run dev          # http://localhost:5173
 
 **Why `localStorage` and not File System Access API?** Zero config, no permission prompt, works in every browser. The escape hatch is JSON Import/Export — that's how you back up, share with Claude, and migrate machines.
 
-**Why no automated test suite?** What matters here is PDF visual fidelity, drag-and-drop UX, and ATS-parseability — none of which a unit test exercises meaningfully. A test suite would build false confidence. The replacement is the manual ritual in §8; do it every time before considering a change "done."
+**What the test suite covers, and what it deliberately doesn't.** There is now a vitest suite — `npm test` — but it is scoped narrowly to the pure core: the resolver (`src/store/resolve.ts`), the schema migration (`src/store/migrations.ts`), the import-side divergence detector (`src/store/reconcile.ts`), and the preview/page-fit math (`src/components/Preview/previewScale.ts`). These are pure functions over plain data, so they're worth pinning — including property-based tests (fast-check) that check invariants across generated inputs (resolution is identity on local/detached items, linked items never accumulate local wording, divergence keeps exactly what the user changed, scale stays bounded, and so on). No jsdom, no component tests. The suite exists because the bank's link lifecycle has real invariants that are cheap to assert and expensive to re-verify by hand.
+
+What vitest does **not** touch is exactly what it couldn't exercise meaningfully: PDF visual fidelity, drag-and-drop UX, and ATS-parseability. A unit test that "passed" on those would build false confidence. Those stay the job of the manual ritual in §8 — run it every time before considering a change "done," and run `npm test` alongside it.
 
 **Why a separate `uiStore`?** So the exported JSON stays free of UI ephemera (which section is collapsed, what's focused, toast queue). The portability invariant says: take the JSON files + `schema.ts` and you can rebuild the app or migrate to a different tool. UI state would pollute that.
 
@@ -92,7 +95,7 @@ Use this after `npm install` to confirm everything still works before making rea
 4. In the Header, drag a contact field to reorder it. Toggle hide (eye icon) on one — preview drops it from the contact line; the field stays in the editor dimmed.
 5. Drag a section to reorder. Drag a bullet to a new position within an item.
 6. Toggle hide (eye icon) on a bullet. Preview drops it; the bullet stays in the editor with strikethrough.
-7. **Export JSON** the active variant. Open the file, eyeball the schema — you should see `header.fields[]` (not bare `email`/`phone` fields) and `schemaVersion: 2`. Click **Import JSON**, choose "add as new variant" — preview is identical.
+7. **Export JSON** the active variant. Open the file, eyeball the schema — you should see `header.fields[]` (not bare `email`/`phone` fields) and `schemaVersion: 3`. Click **Import JSON**, choose "add as new variant" — preview is identical.
 8. Type `[Google](https://google.com)` into a bullet, `**bold**` into another, `*italic*` into a third. Preview should render an underlined link, bold text, and italic text respectively.
 9. `Cmd+P` → Save as PDF. Open the PDF, `Cmd+A` `Cmd+C`, paste into a plain-text editor — should be linear, selectable, ATS-parseable (link renders as anchor text only, no raw markdown syntax).
 
@@ -104,7 +107,7 @@ If any of those steps fails, fix it before doing anything else.
 
 Same vibe as §7 but more thorough — run this after a real code change:
 
-1. `npm run build` — type-check + production build must pass.
+1. `npm run build` — type-check + production build must pass. `npm test` — the pure-core suite must pass too (see "What the test suite covers" above for its scope).
 2. `npm run dev`, edit + reload — persistence still works.
 3. Drag at all four levels: Header contact field, section, item within a section, bullet within an item.
 4. Hide and re-show at all four levels (including a Header contact field).
@@ -115,7 +118,16 @@ Same vibe as §7 but more thorough — run this after a real code change:
 9. PDF text extraction: open the PDF, `Cmd+A` `Cmd+C`, paste — confirm linear and clean. Inline-formatted text (`**bold**`, `[text](url)`) should appear as plain text with no markdown syntax leaking into the paste.
 10. **Markdown export** reads well; no IDs or internal cruft leaked.
 
-Done = all 10 pass.
+The bank is the load-bearing feature now, so exercise its link lifecycle too (these assume a bank entry linked into at least two variants — use the guided importer in the Bank panel's empty state to seed one if you don't have it):
+
+11. **Edit propagates to two variants.** Link one bank entry into variant A and variant B (both show a green dot on the item). Open the Bank panel, reword a bullet on that entry. Switch to A, then B — both previews show the new wording with no re-import. This is the whole point of the bank; if it doesn't propagate, stop and fix it.
+12. **Detach.** On a linked item, edit its wording in the editor. It auto-detaches: badge flips green → amber, the edit is local to that variant, and the other variant linked to the same entry is unchanged.
+13. **Resync.** On that detached (amber) item, click Resync. Its wording hard-overwrites from the bank and the badge goes back to green. Confirm the toast warns that resync discards variant-local hidden/order (per design §4.3 — resync does not reconstruct `hiddenBulletIds`/`bulletOrder` from baked flags). Undo from the toast and confirm the pre-resync state returns.
+14. **Push to bank.** Detach a linked item again, reword it, click Push to bank. The bank entry takes the new wording, the item relinks (amber → green, local wording cleared), and the *other* variant linked to that entry picks up the pushed wording.
+15. **Delete a referenced bank item (orphan-on-delete).** Delete a bank entry that two variants reference. The delete is never blocked by a reference count: both referencing items keep their content as local copies (no badge, wording intact in each variant), and the toast's Undo restores the entry and re-links both.
+16. **Export → edit → re-import divergence round trip.** Export a variant to JSON, open the file, reword exactly two items, re-import. Confirm exactly those two items go amber (detached) and the rest stay green, and that a summary toast names the count ("2 items diverged from the bank — review"). Then the no-op case that catches the overlay bug: hide a bullet on a linked item, export, re-import the file unchanged — the diverged count is zero and the item stays green.
+
+Done = all 16 pass.
 
 ---
 

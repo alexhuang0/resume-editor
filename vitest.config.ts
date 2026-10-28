@@ -17,9 +17,12 @@ export default defineConfig({
   test: {
     environment: "node",
     include: [
-      "src/components/Preview/previewScale.test.ts",
+      "src/components/Preview/**/*.test.ts",
+      "src/components/Preview/**/*.test.tsx",
       "src/store/**/*.test.ts",
       "src/exporters/**/*.test.ts",
+      "src/utils/**/*.test.ts",
+      "src/utils/**/*.test.tsx",
     ],
   },
 });

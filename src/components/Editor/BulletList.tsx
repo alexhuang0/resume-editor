@@ -21,16 +21,25 @@ type Props = {
   sectionId: string;
   itemId: string;
   bullets: Bullet[];
+  /** Linked item (entry present): ✕ hides, Duplicate is off (task 8.3). */
+  linked?: boolean;
+  /** Bullets this variant's overlay hides; resolved lists omit them. */
+  hiddenBullets?: Bullet[];
 };
+
+const LINKED_DELETE_TITLE =
+  "Linked item: hides this bullet in this variant. Delete it from the Bank panel to remove it everywhere.";
 
 function BulletRow({
   bullet,
   sectionId,
   itemId,
+  linked,
 }: {
   bullet: Bullet;
   sectionId: string;
   itemId: string;
+  linked: boolean;
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: bullet.id });
@@ -56,8 +65,10 @@ function BulletRow({
     const section = variant?.sections.find((s) => s.id === sectionId);
     const item = section?.items.find((i) => i.id === itemId);
     const index = item?.bullets.findIndex((b) => b.id === bullet.id) ?? -1;
-    const snapshot: Bullet = { ...bullet };
-    remove(sectionId, itemId, bullet.id);
+    // Linked bullets never get here: their ✕ is the hide action (below).
+    if (index < 0) return;
+    const snapshot = remove(sectionId, itemId, bullet.id);
+    if (!snapshot) return;
     pushToast({
       message: "Bullet deleted",
       undo: () => {
@@ -90,10 +101,15 @@ function BulletRow({
         }
         placeholder="Bullet text"
       />
+      {/* On a linked item this toggles the variant overlay. `bullet.hidden` is
+          the BANK's flag, which the overlay cannot clear, so a bullet the bank
+          hid keeps its dimmed look here; it can only be un-hidden in the Bank.
+          Hiding it here moves it to the "hidden in this variant" list. */}
       <HideToggle hidden={bullet.hidden} onToggle={() => toggle(sectionId, itemId, bullet.id)} />
       <button
         className="btn small"
-        title="Duplicate"
+        title={linked ? "Edit in Bank or detach to duplicate bullets" : "Duplicate"}
+        disabled={linked}
         onClick={() => dup(sectionId, itemId, bullet.id)}
       >
         ⎘
@@ -107,8 +123,9 @@ function BulletRow({
       </button>
       <button
         className="btn small danger"
-        title="Delete"
-        onClick={handleDelete}
+        title={linked ? LINKED_DELETE_TITLE : "Delete"}
+        aria-label={linked ? "Hide bullet in this variant" : "Delete bullet"}
+        onClick={linked ? () => toggle(sectionId, itemId, bullet.id) : handleDelete}
       >
         ✕
       </button>
@@ -116,8 +133,15 @@ function BulletRow({
   );
 }
 
-export function BulletList({ sectionId, itemId, bullets }: Props) {
+export function BulletList({
+  sectionId,
+  itemId,
+  bullets,
+  linked = false,
+  hiddenBullets = [],
+}: Props) {
   const reorder = useResumeStore((s) => s.reorderBullets);
+  const toggle = useResumeStore((s) => s.toggleBulletHidden);
   const add = useResumeStore((s) => s.addBullet);
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }));
 
@@ -140,12 +164,43 @@ export function BulletList({ sectionId, itemId, bullets }: Props) {
         <SortableContext items={bullets.map((b) => b.id)} strategy={verticalListSortingStrategy}>
           <ul className="bullets-list">
             {bullets.map((b) => (
-              <BulletRow key={b.id} bullet={b} sectionId={sectionId} itemId={itemId} />
+              <BulletRow
+                key={b.id}
+                bullet={b}
+                sectionId={sectionId}
+                itemId={itemId}
+                linked={linked}
+              />
             ))}
           </ul>
         </SortableContext>
       </DndContext>
-      <button className="btn small" style={{ marginTop: 6 }} onClick={() => add(sectionId, itemId)}>
+      {linked && hiddenBullets.length > 0 && (
+        <details className="hidden-bullets">
+          <summary>{hiddenBullets.length} hidden in this variant</summary>
+          <ul className="bullets-list">
+            {hiddenBullets.map((b) => (
+              <li key={b.id} className="editor-row bullet">
+                <span className="hidden-bullet-text" title={b.text}>
+                  {b.text}
+                </span>
+                <button
+                  className="btn small"
+                  aria-label={`Unhide bullet: ${b.text.slice(0, 40)}`}
+                  onClick={() => toggle(sectionId, itemId, b.id)}
+                >
+                  Unhide
+                </button>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+      <button
+        className="btn small"
+        style={{ marginTop: 6 }}
+        onClick={() => add(sectionId, itemId)}
+      >
         + Add bullet
       </button>
     </>

@@ -351,6 +351,31 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791914405361
+      },
+      {
+        "executionId": "75ffd272-2a8b-4166-b3e1-cf221332a747",
+        "chatSessionId": "sess_a4b46ee3-5379-404b-bb35-2814cfee6a5f",
+        "timestamp": 1791925225967
+      },
+      {
+        "executionId": "1a16f2f9-e1fb-4e69-911d-d9efc292b586",
+        "chatSessionId": "sess_37a5da7c-5e28-4e81-b459-ecdb2dc579f7",
+        "timestamp": 1791925248184
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926300062
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926317892
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926401420
       }
     ],
     "3.1 Add `collapsedItems: Record<string, boolean>`, `toggleItemCollapsed(itemId)`, and `setAllCollapsed(sectionIds, itemIds, collapsed)` to `uiStore`.": [
@@ -363,6 +388,21 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926599798
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926300187
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926405510
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926486212
       }
     ],
     "3.2 Add a `▸/▾` chevron to `ItemEditor`'s `row-toolbar` next to the drag handle. When collapsed, hide the field grid and the bullet list but keep the toolbar and the heading text visible so the item is still identifiable and draggable.": [
@@ -375,6 +415,21 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926600002
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926300258
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926490285
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926634820
       }
     ],
     "3.3 Add Collapse all / Expand all buttons to the editor pane header in `App.tsx` (or the top of `SectionList`), calling `setAllCollapsed` with every section id and every item id from the active variant.": [
@@ -387,6 +442,21 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926600292
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926300391
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926642669
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791927307953
       }
     ],
     "3.4 Confirm collapse state stays out of `resumeStore` and out of exported JSON — `uiStore` has no persist middleware, so this holds by construction; verify nothing leaks.": [
@@ -399,6 +469,21 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926600471
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926300477
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791927311564
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791927474632
       }
     ],
     "4.1 Add `pageFit(contentHeightPx)` and `measureContentHeightPx(page)` next to `computeScale` in `previewScale.ts`. `pageFit` takes a number, not a DOM node, so the height source stays swappable.": [
@@ -411,6 +496,21 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926600620
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926300570
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791927478678
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791927692703
       }
     ],
     "4.2 Measure with `last.offsetTop + last.offsetHeight` off `.page`'s last element child rather than `.page`'s own `scrollHeight` — `min-height: 11in` floors `scrollHeight` at 1056px, which makes the \"spare room\" branch unreachable. `offsetTop`/`offsetHeight` are layout values, so no scale correction is needed.": [
@@ -423,6 +523,21 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926600775
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926300684
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791927697037
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791927799618
       }
     ],
     "4.3 Trigger measurement from `useLayoutEffect` in `ResumePreview`, keyed on the resume it is rendering, the font choice, and the scale, plus one re-measure after `document.fonts.ready`. Keep the `ResizeObserver` from task 2 for pane-width changes. No debounce.": [
@@ -435,6 +550,31 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926600933
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926300774
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791927802981
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927937451
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927949335
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928005824
       }
     ],
     "4.4 Render the badge in `.preview-toolbar` (unscaled, so it stays readable): \"Fits on 1 page — 0.8in to spare\" or \"Over by ~1.2in\", with wording that states the estimate is approximate to within about a line. The toolbar is in `App.tsx` and the measurement is in `ResumePreview`, so the result goes through `uiStore` next to `previewZoom` — write it from the layout effect only when the value actually changes, or the effect will loop.": [
@@ -447,6 +587,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926601087
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926300846
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927937576
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928009582
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928074754
       }
     ],
     "4.5 Render `.page-overflow-rule` as a dashed line **sibling** of `.page` inside `.page-scaled`, absolutely positioned at `top: 1008px` in page coordinates so it scales with the page. It must never be a child of `.page`.": [
@@ -459,6 +619,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926601241
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926300944
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927937653
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928079193
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928121150
       }
     ],
     "4.6 Add `break-inside: avoid` to `.r-item` and `orphans: 2; widows: 2` to `.r-bullets li` in `resume.css`. This carries break quality in the real PDF regardless of what reports the position.": [
@@ -471,6 +651,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926601408
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301058
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927937733
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928124819
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928149113
       }
     ],
     "4.7 Add `.page-overflow-rule { display: none !important }` to the `@media print` block.": [
@@ -483,6 +683,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926601567
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301139
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927937803
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928152904
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928171178
       }
     ],
     "4.8 **Property test** — Property 19 (page-fit arithmetic is sign-correct), over generated content heights including exactly 960, 0, and very large values. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 19`.": [
@@ -495,6 +715,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926601717
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301221
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927937881
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928175845
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928225212
       }
     ],
     "5.1 Add `BankItemSchema` and `ItemLinkSchema` to `schema.ts`. Add `link`, `hiddenBulletIds`, and `bulletOrder` to `ItemSchema` — zod strips unknown keys, so an undeclared `link` is silently dropped on import. Bump both `schemaVersion` literals and `CURRENT_SCHEMA_VERSION` to 3 and add `bank` to `LibrarySchema`.": [
@@ -507,6 +747,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926601860
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301289
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927937965
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928229907
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928296518
       }
     ],
     "5.2 Write `migrateResumeV2toV3` — it sets `schemaVersion: 3` and rewrites nothing else. Wire it into `parseImport` (chaining v1→v2→v3) and into the zustand `migrate`, bumping the persist `version` to 3 and defaulting `bank` to `[]`.": [
@@ -519,6 +779,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926602017
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301361
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927938068
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928299753
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928381815
       }
     ],
     "5.3 Add `bank: BankItem[]` to `LibraryState`, seed it empty, and add it to `partialize` so it persists. Close the backup loop in the same pass rather than waiting for task 9: `exportLibraryAsJsonFile` writes `bank` alongside the raw variants, `ParsedImport`'s library branch carries `bank`, and `replaceLibrary(variants, bank)` restores it. This cannot wait, because 5.1 bumps `CURRENT_SCHEMA_VERSION` to 3 — so from this task on every `Export all` file claims v3, and a v3 backup with no `bank` key restores every link dangling with no local wording to fall back on (5.4), which means those items come back **blank**. No reconciliation here: at task 5 no links exist yet, so it is a verbatim round trip.": [
@@ -531,6 +811,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926602174
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301440
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927938182
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928385748
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928455825
       }
     ],
     "5.4 Implement bank CRUD in `resumeStore`: `addBankItem`, `updateBankItem`, `deleteBankItem` (plain delete for now — orphaning lands in task 7), `duplicateBankItem`, `renameBankItemLabel`, plus `addBankBullet`, `updateBankBullet`, `deleteBankBullet`, `reorderBankBullets` reusing `reorderByIds`.": [
@@ -543,6 +843,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926602335
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301513
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927938347
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928461102
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928522000
       }
     ],
     "5.5 Add `sidebarMode: \"variants\" | \"bank\"` to `uiStore` and a `Variants ⇄ Bank` dropdown in the sidebar header.": [
@@ -555,6 +875,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926602579
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301588
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927938436
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928525431
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928706120
       }
     ],
     "5.6 Build `BankPanel` with a section-kind switcher, an entry list that falls back to the heading (then \"Untitled <kind>\") when no label is set, and an inline editor reusing the existing `.field-grid` and `.bullets-list` markup.": [
@@ -567,6 +907,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926602756
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301657
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927938522
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928709766
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928778608
       }
     ],
     "5.7 Set up vitest: dev dependency, `npm test` script, config. Scope it to the pure modules only — no jsdom, no component tests.": [
@@ -579,6 +939,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926602974
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301726
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927938590
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928781829
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928824968
       }
     ],
     "5.8 **Property test** — Property 1 (migration preserves every variant and adds an empty bank), over generated valid v2 libraries. Assert `parseImport` and the zustand `migrate` agree. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 1`.": [
@@ -591,6 +971,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926603152
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301807
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927938674
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928830697
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928919374
       }
     ],
     "5.9 **Property test** — Property 8 (link-carrying fields survive a serialization round trip), over generated items carrying `link`, `hiddenBulletIds`, and `bulletOrder`. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 8`.": [
@@ -603,6 +1003,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926603318
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301878
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927938768
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928923135
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929009363
       }
     ],
     "5.10 Unit-test the edge cases: a v1 file chaining through to v3, a v2 file with no `bank` key, and a library whose `bank` is absent.": [
@@ -615,6 +1035,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926603487
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926301957
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927938895
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929013923
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929066786
       }
     ],
     "6.1 Add `src/store/resolve.ts` with `resolveItem(item, bankById)` and `resolveResume(variant, bank)`. Pure — no React, no store imports. Two branches: linked-and-not-detached takes wording from the bank then applies `hidden`/`hiddenBulletIds`/`bulletOrder`; anything else returns the item's own fields. `link` survives resolution, and so do `hiddenBulletIds` and `bulletOrder` — they are already applied to `bullets`, but the exported artifact needs them or task 9's divergence check reports every overlay-carrying item as diverged (design §4.2). Export a `linkState(item): \"linked\" | \"detached\" | \"local\"` classifier from the same module; 6.7's badges and Property 9 both need it. A missing bank entry falls back to the item's own fields with `orphaned: true` and never throws — for a linked item those fields are empty, so the honest result is a blank item plus the affordance task 7.9 adds, not invented content.": [
@@ -627,6 +1067,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926603656
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302035
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927939024
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929072469
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929132486
       }
     ],
     "6.2 Export `reorderByIds` from `resumeStore` (or lift it into a shared module) and reuse it for `bulletOrder` — its existing append-unknown-ids semantics is exactly what the overlay needs.": [
@@ -639,6 +1099,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926603814
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302105
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927939163
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929137230
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929167114
       }
     ],
     "6.3 Rewrite `useCurrentResume()` to select `variant` and `bank` as **separate** selectors (both reference-stable) and compose with `useMemo`. Do **not** call `resolveResume` inside a selector: it returns a new object every time, fails zustand's `Object.is` check, and causes a re-render loop. See design §5.1.": [
@@ -651,6 +1131,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926603991
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302181
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927939262
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929172665
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929210956
       }
     ],
     "6.4 Add `useRawItem(sectionId, itemId)` so the editor can read link state alongside the resolved view. Use it for the **delete-with-undo snapshots** too: `ItemEditor.handleDelete` snapshots its `item` prop, which from this task on is the *resolved* item, so undo would re-insert a linked item carrying full inlined wording and break 5.4 silently. Snapshot the raw item. `BulletList`'s bullet delete has the mirror problem — its snapshot comes from a resolved bullet that does not exist in raw storage — so route it through the same rule (task 8.3 settles what bullet delete should mean on a linked item).": [
@@ -663,6 +1163,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926604169
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302297
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927939367
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929215439
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929295109
       }
     ],
     "6.5 Add `addItemFromBank(sectionId, bankId, afterId?)`, which inserts an item with `link: { bankId }`, empty content fields, and `bullets: []`.": [
@@ -675,6 +1195,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926604345
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302397
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927939468
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929299828
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929345690
       }
     ],
     "6.6 Add a \"+ From bank\" picker to `SectionEditor` next to \"+ Add item\", listing bank entries whose `kind` matches the section and marking entries already used in the active variant.": [
@@ -687,6 +1227,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926604504
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302490
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927939569
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929350045
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929415577
       }
     ],
     "6.7 Render the green link dot on linked items in `ItemEditor`, read from the raw item's `link`.": [
@@ -699,6 +1259,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926604671
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302561
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927939680
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929419189
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929450809
       }
     ],
     "6.8 Make linked items **non-writable** in this task, with an \"Edit in Bank\" affordance. Detach does not exist until task 7, so an edit applied here cannot go anywhere useful: it writes to the variant item's own fields, which the resolver ignores while the item is linked, so the edit vanishes from the view and sits in storage until a later detach surfaces it (5.4 violation). Nothing here can write to the bank, so stranded wording is the whole hazard — but read-only inputs do **not** close it on their own. Put the guard in the store, where `updateItem`, `updateBullet`, and `addBullet` early-return with a \"linked — edit in Bank\" toast when the target is linked and not detached. That is the only place that also covers `useShortcuts`, which calls `addBullet` straight off `uiStore.focus` on `Cmd+Enter` and never touches an input's `readOnly` attribute. Include the skills branch's `Items` input: it is bullet-backed, not a content field, so \"content fields read-only\" would miss it and leave the `addBullet` fallback live. Design §5.5 has the full table of open paths.": [
@@ -711,6 +1291,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926604828
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302638
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927939803
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929458541
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929581271
       }
     ],
     "6.9 Confirm `ResumePreview.tsx`, `toMarkdown.ts`, and the Markdown export need no changes — they keep receiving today's fully populated `Resume` shape. **JSON export is the exception and must change here, not in task 9:** `VariantsSidebar.exportCurrentJson` reads `variants.find(...)` off the store rather than going through `useCurrentResume()`, so from this task on it would export linked items as empty content with `bullets: []`. Point it at the resolved variant (`exportResumeAsJsonFile(variant, bank)`); task 9.1 then only adds the `orphaned` strip.": [
@@ -723,6 +1323,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926604979
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302710
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927939880
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929586751
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929640645
       }
     ],
     "6.10 **Property test** — Property 2 (resolution is the identity on local and detached items). ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 2`.": [
@@ -735,6 +1355,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926605131
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302789
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927939955
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929646480
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929757166
       }
     ],
     "6.11 **Property test** — Property 3 (linked items take their wording from the bank and keep their link). ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 3`.": [
@@ -747,6 +1387,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926605290
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302859
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940106
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929761423
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929862672
       }
     ],
     "6.12 **Property test** — Property 4 (the overlay reorders and hides but never loses or duplicates a bank bullet), with generators that deliberately produce stale and partial overlays. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 4`.": [
@@ -759,6 +1419,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926605470
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926302943
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940184
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929867035
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929921488
       }
     ],
     "6.13 **Property test** — Property 6 (resolution is pure and total) and Property 7 (a resolved resume is always a valid Resume). ≥100 iterations each. Tags: `Feature: item-bank-and-editor-ux, Property 6` and `Property 7`.": [
@@ -771,6 +1451,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926605794
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303007
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940258
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929926187
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930031981
       }
     ],
     "6.14 **Property test** — Property 9 (exactly one link state per item). ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 9`.": [
@@ -783,6 +1483,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926606158
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303087
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940335
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930036744
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930101474
       }
     ],
     "7.1 Implement `detachItem(sectionId, itemId)`: resolve once, write the resolved content locally, bake the visibility overlay into the local bullets (apply `bulletOrder`, convert `hiddenBulletIds` into `bullet.hidden`), clear `hiddenBulletIds` and `bulletOrder`, set `link.detached = true`. Pull the baking out as a reusable `bakeOverlay(item, entry)` — task 9.4 needs the identical behavior on the diverged-import path, and two implementations of it will drift.": [
@@ -795,6 +1515,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926606572
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303158
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940419
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930107728
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930194922
       }
     ],
     "7.2 Implement `resyncItem(sectionId, itemId)`: hard overwrite — clear local content fields and `bullets`, drop `detached`. It does not reconstruct `hiddenBulletIds` from the baked `hidden` flags, so resync discards the variant's bullet-level visibility and order along with the local wording; say so in the toast (\"resynced from bank — local wording and hidden bullets replaced\") and make the undo carry the full pre-resync snapshot, following the existing delete-with-undo pattern. No three-way merge.": [
@@ -807,6 +1547,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926606868
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303244
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940497
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930200340
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930271478
       }
     ],
     "7.3 Implement `pushItemToBank(sectionId, itemId)`: copy the detached item's local wording into the bank entry, bump its `updatedAt`, then clear the local content and drop `detached`. If the item has any hidden bullets, warn before writing — baked `hidden` flags become bank-level once pushed, which parks those bullets for every variant linked to the entry. See design §5.7 for why this path exists and what the alternatives cost.": [
@@ -819,6 +1579,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926607176
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303359
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940571
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930276279
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930367398
       }
     ],
     "7.4 Implement `promoteItemToBank(sectionId, itemId)` behind an \"Add to bank ↑\" button on local items: create a bank entry from the item's content, relink the item to it, **and clear the item's local content fields and `bullets`** — a linked item stores no wording (5.4), and leaving the copy in place would make Property 10 fail and resurrect stale wording at the next detach.": [
@@ -831,6 +1611,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926607460
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303470
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940655
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930372521
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930457103
       }
     ],
     "7.5 Implement `forkItemToNewBankItem(sectionId, itemId)`: create a new bank entry from the item's current resolved content, relink to the new entry, and clear the local content, `bullets`, and `detached` — the item ends up **linked** to the fork (design §4.3), not detached. The original entry is untouched.": [
@@ -843,6 +1643,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926607768
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303551
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940732
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930462057
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930571654
       }
     ],
     "7.6 Add a `withAutoDetach` wrapper around `updateItem`, `updateBullet`, and `addBullet` so a wording edit on a linked item detaches first, then applies locally. One helper, one place the rule lives. This replaces task 6.8's refuse-the-write guard at the same three call sites — delete the guard rather than layering on top of it, or the auto-detach will never be reached.": [
@@ -855,6 +1675,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926608419
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303636
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940818
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930576114
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933297959
       }
     ],
     "7.7 Unlock the editor inputs and bullet controls that task 6.8 disabled — the store-side guard behind them goes away in 7.6, so leaving the UI disabled would strand the auto-detach path. Fix the skills branch of `ItemEditor`, which reads `item.bullets[0]` directly — a linked skills item has `bullets: []` in raw storage, so it must read from the **resolved** item and route its edit through the auto-detach guard, or typing in a linked skill row hits the `addBullet` fallback and creates a stray bullet.": [
@@ -867,6 +1707,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926608756
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303724
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927940900
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933317406
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933389198
       }
     ],
     "7.8 Rewrite `deleteBankItem` to orphan: walk every variant, resolve each referencing item, write that content locally, drop `link`. Push an undo toast that restores the entry and re-links. Never count references to decide whether to proceed.": [
@@ -879,6 +1739,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926609183
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303806
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927941029
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933406723
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933490543
       }
     ],
     "7.9 Add the amber detached badge and the orphaned-item affordance (bank entry missing → fork to bank, or drop the link).": [
@@ -891,6 +1771,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926609445
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303889
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927941140
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933496734
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933606814
       }
     ],
     "7.10 **Property test** — Property 11, wording half only: `updateItem` / `updateBullet` / `addBullet` on a linked item leave it detached with the edit stored locally. The visibility half cannot pass yet — `toggleBulletHidden` and `reorderBullets` only learn about the overlay in task 8, and until then they are silent no-ops on a linked item because raw `bullets` is `[]`. Assert here that they do not detach; task 8.7 adds the overlay assertion and the property as a whole. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 11`.": [
@@ -903,6 +1803,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926609643
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926303973
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927941216
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933615750
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933789908
       }
     ],
     "7.11 **Property test** — Property 12 (content-moving actions preserve what the user sees) across detach, push, promote, and fork. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 12`.": [
@@ -915,6 +1835,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926609907
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304056
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927941333
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933803248
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933990453
       }
     ],
     "7.12 **Property test** — Property 13 (detach then resync returns to the bank's wording). ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 13`.": [
@@ -927,6 +1867,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926610156
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304134
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927941446
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791933995330
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934103296
       }
     ],
     "7.13 **Property test** — Property 14 (deleting a bank item orphans references and never fails), over generated libraries with zero, one, and many references to the same entry. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 14`.": [
@@ -939,6 +1899,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926610423
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304209
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927941550
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934108169
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934234345
       }
     ],
     "8.1 Make `toggleBulletHidden` link-aware: on a linked, non-detached item, add or remove the bullet id in `hiddenBulletIds` instead of mutating `bullets`, and do **not** detach.": [
@@ -951,6 +1931,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926610779
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304292
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927941652
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934239659
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934328783
       }
     ],
     "8.2 Make `reorderBullets` link-aware: on a linked, non-detached item, write `bulletOrder` instead of mutating `bullets`, and do **not** detach.": [
@@ -963,6 +1963,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926610973
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304402
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927941765
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934333750
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934403714
       }
     ],
     "8.3 Confirm `BulletList` works unchanged against resolved bullets for drag-reorder and hide, and that `deleteBullet` on a linked item is routed sensibly — hiding is the variant-local operation; deleting wording belongs in the bank.": [
@@ -975,6 +1995,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926611198
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304485
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927941880
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934425698
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934517183
       }
     ],
     "8.4 Verify resolution applies the overlay via `reorderByIds` so a bullet added to a bank entry after the overlay was written appends rather than vanishing.": [
@@ -987,6 +2027,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926611540
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304566
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927941981
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934527106
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934599080
       }
     ],
     "8.5 **Property test** — Property 10 (linked items never accumulate local wording), over generated sequences of non-detaching actions. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 10`.": [
@@ -999,6 +2059,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926611782
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304651
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927942066
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934612817
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934757386
       }
     ],
     "8.6 **Property test** — Property 5 (overlays are variant-local), over one bank entry and two distinct overlays. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 5`.": [
@@ -1011,6 +2091,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926611990
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304736
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927942165
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934773003
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934874749
       }
     ],
     "8.7 **Property test** — Property 11 in full, replacing the half-scoped version from 7.10: wording actions leave the item detached with the edit local, visibility actions leave it linked with the change in the overlay. This is the highest-value test in the feature: a test that only checks detach-on-edit passes happily while hide-also-detaches quietly destroys the bank's value, which is exactly why the visibility half could not be asserted before this task. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 11`.": [
@@ -1023,6 +2123,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926612248
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304821
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927942278
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934880524
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791935006667
       }
     ],
     "9.1 `exportResumeAsJsonFile` already writes `resolveResume(variant, bank)` as of 6.9. Finish it here: confirm `link`, `hiddenBulletIds`, and `bulletOrder` ride along as inert metadata (the import side below depends on the overlay being in the file), and strip the resolver's `orphaned` flag before serializing — it is a UI flag, and the JSON artifact contract says UI-only fields stay out of it.": [
@@ -1035,6 +2155,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926612467
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926304959
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927942375
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791935014262
+      },
+      {
+        "executionId": "13f514cf-63f8-40b9-920e-dc79ea3c10b9",
+        "chatSessionId": "sess_a695ae81-328c-4529-84a5-e2c6fb6220c8",
+        "timestamp": 1791935948792
       }
     ],
     "9.2 `exportLibraryAsJsonFile` and the library import plumbing landed in 5.3. What belongs here is the reconciliation wiring: a library import reconciles against the **imported** bank, not the one currently in the store, and replaces the store's bank with it. Reconciling against the old bank would mark the whole file diverged.": [
@@ -1047,6 +2187,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926612661
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305056
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927942462
+      },
+      {
+        "executionId": "13f514cf-63f8-40b9-920e-dc79ea3c10b9",
+        "chatSessionId": "sess_a695ae81-328c-4529-84a5-e2c6fb6220c8",
+        "timestamp": 1791935953498
+      },
+      {
+        "executionId": "13f514cf-63f8-40b9-920e-dc79ea3c10b9",
+        "chatSessionId": "sess_a695ae81-328c-4529-84a5-e2c6fb6220c8",
+        "timestamp": 1791936187758
       }
     ],
     "9.3 Add `contentEquals(a, b)` comparing the four content fields plus the bullet list by `(id, text, hidden)` in order. Note the operands: the reconciler compares the imported item against `resolveItem(imported, bankById)` — the bank's wording **as resolved under that item's own overlay** — not against the raw bank entry. Export inlines the overlay-applied view, so a raw-entry comparison reports every item with a non-empty `hiddenBulletIds` or `bulletOrder` as diverged even when the user changed nothing.": [
@@ -1059,6 +2219,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926612935
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305189
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927942537
+      },
+      {
+        "executionId": "13f514cf-63f8-40b9-920e-dc79ea3c10b9",
+        "chatSessionId": "sess_a695ae81-328c-4529-84a5-e2c6fb6220c8",
+        "timestamp": 1791936191756
+      },
+      {
+        "executionId": "13f514cf-63f8-40b9-920e-dc79ea3c10b9",
+        "chatSessionId": "sess_a695ae81-328c-4529-84a5-e2c6fb6220c8",
+        "timestamp": 1791936356722
       }
     ],
     "9.4 Add `reconcileImportedItem(imported, bankById)` with four branches, in this order: no `link` → pass through; `link.detached` → **pass through untouched**, never compared to the bank (its wording is the user's, not the bank's — comparing it and taking the identical branch would wipe it and leave a detached item with no content at all); bank entry missing → drop `link` plus the now-meaningless overlay, keep the content as a local item; otherwise compare → identical means stay linked, keep the overlay, drop the duplicated wording; different means keep the imported copy, `bakeOverlay` it with 7.1's helper so bullets this variant was hiding are re-attached as `hidden` rather than dropped, clear the overlay, and set `detached: true`.": [
@@ -1071,6 +2251,31 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926613390
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305262
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927942619
+      },
+      {
+        "executionId": "13f514cf-63f8-40b9-920e-dc79ea3c10b9",
+        "chatSessionId": "sess_a695ae81-328c-4529-84a5-e2c6fb6220c8",
+        "timestamp": 1791936361070
+      },
+      {
+        "executionId": "13f514cf-63f8-40b9-920e-dc79ea3c10b9",
+        "chatSessionId": "sess_a695ae81-328c-4529-84a5-e2c6fb6220c8",
+        "timestamp": 1791936763723
+      },
+      {
+        "executionId": "1f4d260e-7572-4c9c-9f83-67d69529d524",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791936844462
       }
     ],
     "9.5 Run reconciliation across every imported variant in `parseImport`, roll the divergence count up, and surface it as a toast — \"7 items diverged from the bank — review\".": [
@@ -1083,6 +2288,21 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926613648
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305349
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927942717
+      },
+      {
+        "executionId": "1f4d260e-7572-4c9c-9f83-67d69529d524",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791936848452
       }
     ],
     "9.6 Keep the no-`link` and post-v2-migration paths as plain pass-throughs.": [
@@ -1095,6 +2315,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926613905
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305423
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927942815
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791937257786
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791937364615
       }
     ],
     "9.7 **Property test** — Property 15 (divergence detection keeps exactly what the user changed), with generators that perturb exactly one field or one bullet. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 15`.": [
@@ -1107,6 +2347,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926614171
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305510
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927942943
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791937371784
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791937645171
       }
     ],
     "9.8 **Property test** — Property 16 (export then import preserves identity and rendering). ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 16`.": [
@@ -1119,6 +2379,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926614468
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305596
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943018
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791937649295
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791937827878
       }
     ],
     "10.1 Add `importItemsToBank(variantId, sectionIds)` to `resumeStore`: for each selected section, create a bank entry from every item that is not already linked, relink those items to their new entries, and clear their local wording — this is `promoteItemToBank` (7.4) in bulk, so reuse it rather than re-deriving it, including the clear. Leaving the wording behind is what would make Property 17's second run look idempotent while the items are actually malformed.": [
@@ -1131,6 +2411,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926614825
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305689
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943097
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791937840148
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938010564
       }
     ],
     "10.2 Split out the pure projection — \"given this variant and these section ids, here is what would be created\" — so the preview step and the apply step cannot disagree.": [
@@ -1143,6 +2443,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926615170
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305807
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943169
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938014461
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938139191
       }
     ],
     "10.3 Build the Bank panel empty state as the importer: pick source variant → pick sections (checkboxes) → preview the list of entries that will be created → confirm.": [
@@ -1155,6 +2475,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926615425
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305901
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943278
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938142454
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938342552
       }
     ],
     "10.4 Skip already-linked items, and keep the importer reachable after the first run so it can be used per-section later.": [
@@ -1167,6 +2507,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926615745
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926305999
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943398
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938345838
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938467804
       }
     ],
     "10.5 **Property test** — Property 17 (bank bootstrap is idempotent): run the projection, apply it, run it again, and the second batch is empty. ≥100 iterations. Tag: `Feature: item-bank-and-editor-ux, Property 17`.": [
@@ -1179,6 +2539,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926616190
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926306071
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943496
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938471797
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938629069
       }
     ],
     "11.1 Write `PROMPTS.md` with the settled tailoring rules: preserve every `id` verbatim; omit via `hidden: true`, never deletion; reorder by moving array elements; rewording is allowed, inventing experience is not; leave `link`, `hiddenBulletIds`, and `bulletOrder` untouched (all three are inert metadata the re-import reads, and `hiddenBulletIds` will legitimately name bullet ids that are not in the document — that is not an error to clean up); return the complete JSON document, not a diff or a fragment.": [
@@ -1191,6 +2571,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926616720
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926306156
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943598
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938634397
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938730024
       }
     ],
     "11.2 Explain in the file *why* ids matter — the import-side divergence check keys off them, and a regenerated id turns a reworded bullet into a lost one.": [
@@ -1203,6 +2603,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926617096
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926306238
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943700
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938639536
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938731254
       }
     ],
     "11.3 Add a \"Copy tailoring prompt\" button that writes the rules plus the active variant's exported (resolved) JSON to the clipboard via `navigator.clipboard.writeText`, with a toast confirming the copy.": [
@@ -1215,6 +2635,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926617423
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926306336
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943793
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938734767
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938899734
       }
     ],
     "12.1 CLAUDE.md: document the bank architecture, the three link states, the resolve-on-read contract (bank owns wording, variant owns visibility and order), and the `useCurrentResume` memoization gotcha with the right and wrong code side by side. Include the two asymmetries that will otherwise be rediscovered the hard way: detach bakes the overlay into `bullet.hidden` while resync discards it, and single-variant export resolves while library export stays raw and carries `bank`.": [
@@ -1227,6 +2667,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926617694
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926306421
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943896
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938908641
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939017376
       }
     ],
     "12.2 CLAUDE.md: note that `window.print()` is still the only print path, that Paged.js is parked with reasons, and that every new pane/preview wrapper must be added to the `@media print` list.": [
@@ -1239,6 +2699,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926617911
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926306505
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927943993
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939020694
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939091307
       }
     ],
     "12.3 ONBOARDING.md invariants: add \"the bank owns wording, the variant owns visibility and order\", and replace the v1→v2 reference example with the schemaVersion 3 migration.": [
@@ -1251,6 +2731,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926618168
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926306596
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927944093
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939095607
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939228683
       }
     ],
     "12.4 ONBOARDING.md §8: extend the verification ritual with edit-propagates-to-two-variants, detach, resync, push-to-bank, delete-a-referenced-bank-item, and the export/divergence round trip.": [
@@ -1263,6 +2763,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926618361
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926306682
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927944196
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939097451
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939230545
       }
     ],
     "12.5 ONBOARDING.md: revise the \"why no automated test suite\" note to state the narrow deviation — vitest covers the resolver, the migration, the divergence detector, and the preview math, while the manual ritual still owns PDF fidelity, drag-and-drop, and ATS-parseability.": [
@@ -1275,6 +2795,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926618559
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926306772
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927944292
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939099288
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939232005
       }
     ],
     "12.6 Add `npm test` to the commands block in CLAUDE.md and point PROMPTS.md from both docs.": [
@@ -1287,6 +2827,26 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791926618761
+      },
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926306853
+      },
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791927944408
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939235833
+      },
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939290976
       }
     ],
     "1. Resizable panes": [
@@ -1294,6 +2854,83 @@
         "executionId": "9e4705b7-28c5-45ad-8c83-d68f4a5f7064",
         "chatSessionId": "sess_e09c9975-8134-45ee-9589-4377a4b11e41",
         "timestamp": 1791913159895
+      }
+    ],
+    "2. Preview auto-fit and zoom": [
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791926401503
+      }
+    ],
+    "3. Two-level collapse": [
+      {
+        "executionId": "e6719d0f-0571-4f70-aaa3-5771f8c1bcbe",
+        "chatSessionId": "sess_5095b8a4-9f27-4575-9559-062e7c47d1d2",
+        "timestamp": 1791927474747
+      }
+    ],
+    "4. Page-fit feedback (estimate)": [
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791928225374
+      }
+    ],
+    "5. Schema v3, bank state, and the Bank panel": [
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791929066918
+      }
+    ],
+    "6. Resolver and composing from the bank": [
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791930101714
+      }
+    ],
+    "7. Link lifecycle actions": [
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791934234406
+      }
+    ],
+    "8. Variant-local visibility and order on linked items": [
+      {
+        "executionId": "c9e28c6b-4411-46e5-a1f2-5210d6533ecd",
+        "chatSessionId": "sess_80b16c59-dd22-45e7-a038-d502151395e4",
+        "timestamp": 1791935006755
+      }
+    ],
+    "9. Export and import round-trip": [
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791937828096
+      }
+    ],
+    "10. Guided bank bootstrap": [
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938629319
+      }
+    ],
+    "11. PROMPTS.md and the copy-prompt button": [
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791938899945
+      }
+    ],
+    "12. Docs and ritual update": [
+      {
+        "executionId": "1c3cb380-4502-4265-ac8c-fa4532dcf0bd",
+        "chatSessionId": "sess_b4136756-c2c5-44ed-9416-43caa6b21010",
+        "timestamp": 1791939291123
       }
     ]
   }

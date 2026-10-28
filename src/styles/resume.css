@@ -65,7 +65,7 @@
 }
 
 .r-section-title {
-  font-size: 12pt;
+  font-size: 11pt;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -77,17 +77,28 @@
 /* Items */
 .r-item {
   margin-top: 4pt;
+  break-inside: avoid;
 }
 
 .r-item-header {
   display: flex;
   justify-content: space-between;
   gap: 8pt;
+  margin-bottom: -2.5pt;
 }
 
 .r-item-headerL {
   display: flex;
   flex-direction: column;
+}
+
+/* "Project" sections lay heading and subheading out inline, joined by a
+   " | " separator, instead of stacking them. */
+.r-item-headerL-inline {
+  flex-direction: row;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0;
 }
 
 .r-item-headerR {
@@ -100,8 +111,20 @@
   font-weight: bold;
 }
 
+/* Separator between heading and subheading on the inline header line.
+   The literal " | " text carries its own surrounding spaces, so no margins. */
+.r-heading-sep {
+  white-space: pre;
+}
+
 .r-subheading {
   font-style: italic;
+  font-size: 0.95em;
+}
+
+/* Inline unbold token (!!text!!): normal weight inside otherwise bold context. */
+.r-unbold {
+  font-weight: normal;
 }
 
 .r-location,
@@ -119,6 +142,8 @@
 .r-bullets li {
   margin: 0;
   padding: 0;
+  orphans: 2;
+  widows: 2;
 }
 
 /* Inline anchors inherit the surrounding text color so they don't disrupt the

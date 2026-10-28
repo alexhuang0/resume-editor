@@ -1,0 +1,177 @@
+{
+  "pbtResults": {
+    "4.2 Write property tests for the item header": {
+      "status": "passed",
+      "lastRunTimestamp": 1792026730013
+    }
+  },
+  "executionHistory": {
+    "1.1 Add the `!!` regex alternative and unbold emission branch": [
+      {
+        "executionId": "752c754a-269d-4e43-9dc9-a9a4dfcccee4",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026248191
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026263134
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026319240
+      }
+    ],
+    "1.2 Write property tests for the inline renderer": [
+      {
+        "executionId": "752c754a-269d-4e43-9dc9-a9a4dfcccee4",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026248331
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026322669
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026466455
+      }
+    ],
+    "1.3 Write example / edge-case tests for the inline renderer": [
+      {
+        "executionId": "752c754a-269d-4e43-9dc9-a9a4dfcccee4",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026248532
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026324096
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026467491
+      }
+    ],
+    "2. Add CSS for the unbold token and inline header": [
+      {
+        "executionId": "752c754a-269d-4e43-9dc9-a9a4dfcccee4",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026248614
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026324965
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026468355
+      }
+    ],
+    "3. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "752c754a-269d-4e43-9dc9-a9a4dfcccee4",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026248705
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026478150
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026527393
+      }
+    ],
+    "4.1 Rewrite the `.r-item-headerL` / `.r-item-headerR` markup in `ResumePreview.tsx`": [
+      {
+        "executionId": "752c754a-269d-4e43-9dc9-a9a4dfcccee4",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026248807
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026528539
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026618949
+      }
+    ],
+    "4.2 Write property tests for the item header": [
+      {
+        "executionId": "752c754a-269d-4e43-9dc9-a9a4dfcccee4",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026248908
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026622997
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026745624
+      }
+    ],
+    "4.3 Write example / edge-case + R6 presence tests for the item header": [
+      {
+        "executionId": "752c754a-269d-4e43-9dc9-a9a4dfcccee4",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026248997
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026623208
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026746653
+      }
+    ],
+    "5. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "752c754a-269d-4e43-9dc9-a9a4dfcccee4",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026249078
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026751131
+      },
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026801122
+      }
+    ],
+    "1. Extend `renderInline` with the `!!text!!` unbold token": [
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026467543
+      }
+    ],
+    "4. Restructure the `ItemBlock` header and remove the location hack": [
+      {
+        "executionId": "eb75092f-a292-4c8b-a6ef-d1fbdabdbef7",
+        "chatSessionId": "sess_56d123c5-24a8-466d-b569-935572b6ad98",
+        "timestamp": 1792026746761
+      }
+    ]
+  }
+}

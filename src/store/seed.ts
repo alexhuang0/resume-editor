@@ -3,7 +3,7 @@ import { newId } from "./schema";
 
 export function makeSeedResume(name = "Default"): Resume {
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     id: newId("r"),
     name,
     updatedAt: new Date().toISOString(),

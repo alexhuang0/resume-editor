@@ -1,5 +1,6 @@
 import { useHotkeys } from "react-hotkeys-hook";
-import { useResumeStore } from "../store/resumeStore";
+import { bulletRowActions } from "../store/bulletRowActions";
+import { findRawItem, useResumeStore } from "../store/resumeStore";
 import { useUiStore } from "../store/uiStore";
 
 /* Keyboard shortcuts scoped to the focused node (set via uiStore.focus). */
@@ -64,9 +65,18 @@ export function useEditorShortcuts() {
       if (focused.kind === "section") s.duplicateSection(focused.sectionId);
       else if (focused.kind === "item")
         s.duplicateItem(focused.sectionId, focused.itemId);
-      else if (focused.kind === "bullet")
-        s.duplicateBullet(focused.sectionId, focused.itemId, focused.bulletId);
-      else if (focused.kind === "header-field") {
+      else if (focused.kind === "bullet") {
+        // A linked item's bullets live in the bank: duplicating one is not a
+        // variant-local operation, so say so instead of silently doing nothing.
+        const variant = s.variants.find((v) => v.id === s.currentVariantId) ?? s.variants[0];
+        const raw = findRawItem(variant, focused.sectionId, focused.itemId);
+        const entry = raw?.link ? s.bank.find((b) => b.id === raw.link!.bankId) : undefined;
+        if (!bulletRowActions(raw, entry).canDuplicate) {
+          useUiStore.getState().pushToast({ message: "Detach to duplicate bullets" });
+        } else {
+          s.duplicateBullet(focused.sectionId, focused.itemId, focused.bulletId);
+        }
+      } else if (focused.kind === "header-field") {
         const newId = s.duplicateHeaderField(focused.fieldId);
         if (newId) useUiStore.getState().setFocus({ kind: "header-field", fieldId: newId });
       }

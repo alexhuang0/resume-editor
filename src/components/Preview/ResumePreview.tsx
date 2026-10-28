@@ -2,9 +2,24 @@ import { useLayoutEffect, useRef, useState, type Ref } from "react";
 import type { Item, Resume, Section } from "../../store/schema";
 import { useUiStore } from "../../store/uiStore";
 import { renderInline } from "../../utils/inlineMarkdown";
-import { PAGE_WIDTH_PX, computeScale } from "./previewScale";
+import {
+  PAGE_V_PADDING_PX,
+  PAGE_WIDTH_PX,
+  PRINTABLE_PX,
+  computeScale,
+  measureContentHeightPx,
+  pageFit,
+} from "./previewScale";
 
 type Props = { resume: Resume };
+
+/**
+ * Where the printable box ends, in page coordinates (unscaled px from the top
+ * of `.page`): the 0.5in top padding plus the 10in printable box = 1008px.
+ * Derived from the same constants `pageFit` uses so the rule and the badge
+ * cannot disagree about where the page break is.
+ */
+const OVERFLOW_RULE_TOP_PX = PAGE_V_PADDING_PX / 2 + PRINTABLE_PX;
 
 function visibleSections(r: Resume): Section[] {
   return r.sections.filter((s) => !s.hidden);
@@ -18,7 +33,11 @@ function visibleBullets(i: Item) {
   return i.bullets.filter((b) => !b.hidden);
 }
 
-function ItemBlock({ item }: { item: Item }) {
+// Only "project" sections (title contains the substring, case-insensitive) use
+// the inline `heading | subheading` layout; every other section keeps the
+// original stacked subheading, hence `sectionTitle` is threaded through.
+export function ItemBlock({ item, sectionTitle }: { item: Item, sectionTitle: string }) {
+  const isProject = sectionTitle.toLowerCase().includes("project");
   const showHeader = !!(
     item.heading ||
     item.subheading ||
@@ -30,14 +49,19 @@ function ItemBlock({ item }: { item: Item }) {
     <div className="r-item">
       {showHeader && (
         <div className="r-item-header">
-          <div className="r-item-headerL">
+          <div className={isProject ? "r-item-headerL r-item-headerL-inline" : "r-item-headerL"}>
             {item.heading && <span className="r-heading">{renderInline(item.heading)}</span>}
+            {isProject && item.heading && item.subheading && (
+              <span className="r-heading-sep">{" | "}</span>
+            )}
             {item.subheading && (
               <span className="r-subheading">{renderInline(item.subheading)}</span>
             )}
           </div>
           <div className="r-item-headerR">
-            {item.location && <span className="r-location">{renderInline(item.location)}</span>}
+            {item.location && (
+              <span className="r-location">{renderInline(item.location)}</span>
+            )}
             {item.dateRange && <span className="r-date">{renderInline(item.dateRange)}</span>}
           </div>
         </div>
@@ -72,7 +96,7 @@ function SectionBlock({ section }: { section: Section }) {
       <h2 className="r-section-title">{section.title}</h2>
       {section.kind === "skills"
         ? items.map((it) => <SkillRow key={it.id} item={it} />)
-        : items.map((it) => <ItemBlock key={it.id} item={it} />)}
+        : items.map((it) => <ItemBlock key={it.id} item={it} sectionTitle={section.title}/>)}
     </section>
   );
 }
@@ -141,6 +165,10 @@ export function ResumePreview({ resume }: Props) {
   // subtree rather than a parent — hence the store rather than a prop (2.5).
   const zoom = useUiStore((s) => s.previewZoom);
   const scale = computeScale(zoom, availableWidthPx);
+
+  // The dashed rule shows only while the page overflows (4.3). `null` means
+  // "not measured yet", which is not an overflow.
+  const overflowing = useUiStore((s) => s.pageFit?.fits === false);
 
   // Horizontal overflow has to be start-aligned, not centered (2.3).
   //
@@ -211,6 +239,45 @@ export function ResumePreview({ resume }: Props) {
     setScaledHeightPx((prev) => (prev === height ? prev : height));
   }, [resume, scale]);
 
+  // Page-fit measurement (4.1, 4.2, 4.3).
+  //
+  // Triggered from a layout effect rather than from the `ResizeObserver` above:
+  // `.page` is `min-height: 11in`, so its own box never shrinks below the floor
+  // and an observer on it would not fire while content grows inside it (design
+  // §3). `resume` changes identity on every edit, so keying on it is "measure
+  // on every edit"; `font` changes the glyph metrics; `scale` is in the key as
+  // specified, though the measurement itself is scale-independent because
+  // `offsetTop`/`offsetHeight` ignore transforms. No debounce — a single
+  // layout-value read is cheap and the trim-to-fit loop has to stay instant.
+  //
+  // Writes go through `setPageFit`, which compares by value before setting, so a
+  // measurement that lands on the same number notifies nobody and cannot
+  // re-trigger this effect.
+  //
+  // The first measurement can be taken with the fallback face while the webfont
+  // is still loading, and its line breaks differ. One re-measure after
+  // `document.fonts.ready` corrects that; it is inside this effect so a font
+  // switch gets the same treatment, and `cancelled` stops a stale effect's
+  // promise from writing after a newer one has run.
+  const font = resume.font;
+  useLayoutEffect(() => {
+    const page = pageRef.current;
+    if (!page) return;
+
+    const measure = () => {
+      useUiStore.getState().setPageFit(pageFit(measureContentHeightPx(page)));
+    };
+    measure();
+
+    let cancelled = false;
+    document.fonts?.ready.then(() => {
+      if (!cancelled) measure();
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [resume, font, scale]);
+
   return (
     <div
       className="page-scaler"
@@ -223,6 +290,17 @@ export function ResumePreview({ resume }: Props) {
     >
       <div className="page-scaled" style={{ transform: `scale(${scale})` }}>
         <ResumePage resume={resume} pageRef={pageRef} />
+        {/* A SIBLING of `.page`, never a child (4.4): `measureContentHeightPx`
+            reads `.page`'s last element child, and a child here would measure
+            itself. Positioned in page coordinates inside `.page-scaled`, so it
+            scales with the page. */}
+        {overflowing && (
+          <div
+            className="page-overflow-rule"
+            aria-hidden="true"
+            style={{ top: OVERFLOW_RULE_TOP_PX }}
+          />
+        )}
       </div>
     </div>
   );

@@ -15,12 +15,14 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { Fragment, useRef } from "react";
 import { useResumeStore, useCurrentResume } from "./store/resumeStore";
+import { collapseTargets } from "./store/collapseTargets";
 import { useUiStore } from "./store/uiStore";
 import type { PaneId } from "./store/uiStore";
 import { VariantsSidebar } from "./components/VariantsSidebar";
 import { HeaderEditor } from "./components/Editor/HeaderEditor";
 import { SectionList } from "./components/Editor/SectionList";
 import { ResumePreview } from "./components/Preview/ResumePreview";
+import { pageFitLabel } from "./components/Preview/previewScale";
 import type { Zoom } from "./components/Preview/previewScale";
 import { Toasts } from "./components/Toasts";
 import { useEditorShortcuts } from "./hooks/useShortcuts";
@@ -190,6 +192,10 @@ function App() {
   // round-trips through `uiStore` (design §4.6).
   const previewZoom = useUiStore((s) => s.previewZoom);
   const setPreviewZoom = useUiStore((s) => s.setPreviewZoom);
+  // Written by `ResumePreview`'s layout effect, read here so the badge sits in
+  // the unscaled toolbar (4.2, 4.3). `null` until the first measurement.
+  const pageFit = useUiStore((s) => s.pageFit);
+  const setAllCollapsed = useUiStore((s) => s.setAllCollapsed);
 
   // Kept in a ref, not state: the drag writes to `uiStore` on every move, and
   // a second re-render per move buys nothing.
@@ -313,6 +319,20 @@ function App() {
     exportMarkdownFile(resume, resumeToMarkdown(resume));
   };
 
+  /**
+   * Collapse all / Expand all (3.2, 3.3). One click covers both levels because
+   * the ids come from the resume model rather than the rendered rows — see
+   * `collapseTargets`.
+   *
+   * This writes only to `uiStore`, which holds no resume data and has no
+   * persist middleware, so the preview and the printed page are untouched
+   * (3.4, 3.5).
+   */
+  const handleSetAllCollapsed = (collapsed: boolean) => {
+    const { sectionIds, itemIds } = collapseTargets(resume);
+    setAllCollapsed(sectionIds, itemIds, collapsed);
+  };
+
   const paneContent: Record<PaneId, { label: string; node: React.ReactNode }> = {
     sidebar: {
       label: "Variants",
@@ -322,7 +342,27 @@ function App() {
       label: "Editor",
       node: (
         <main className="editor">
-          <h2>{resume.name}</h2>
+          <div className="editor-toolbar">
+            {/* Still the first `h2` under `.editor`, so `.editor h2:first-child`
+                keeps zeroing its top margin. */}
+            <h2>{resume.name}</h2>
+            <div className="right">
+              <button
+                className="btn small"
+                onClick={() => handleSetAllCollapsed(true)}
+                title="Collapse every section and item"
+              >
+                Collapse all
+              </button>
+              <button
+                className="btn small"
+                onClick={() => handleSetAllCollapsed(false)}
+                title="Expand every section and item"
+              >
+                Expand all
+              </button>
+            </div>
+          </div>
           <HeaderEditor />
           <SectionList />
         </main>
@@ -339,6 +379,16 @@ function App() {
             <button className="btn" onClick={handleMarkdownExport}>
               Export Markdown
             </button>
+            {pageFit && (
+              <span
+                className={`page-fit-badge ${pageFit.fits ? "fits" : "over"}`}
+                role="status"
+                title="Estimated from the on-screen layout. Print preview may differ by about a line."
+              >
+                <strong>{pageFitLabel(pageFit)}</strong>
+                <span className="page-fit-note">estimate, ±1 line</span>
+              </span>
+            )}
             <div className="right">
               <span className="zoom-toggle">
                 <label htmlFor="preview-zoom">Zoom:</label>

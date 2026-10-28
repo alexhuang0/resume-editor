@@ -15,6 +15,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { useResumeStore } from "../../store/resumeStore";
 import type { Section } from "../../store/schema";
 import { useUiStore } from "../../store/uiStore";
+import { BankPicker } from "./BankPicker";
 import { HideToggle } from "./HideToggle";
 import { ItemEditor } from "./ItemEditor";
 
@@ -65,8 +66,10 @@ export function SectionEditor({ section }: Props) {
     const r = useResumeStore.getState();
     const variant = r.variants.find((v) => v.id === r.currentVariantId);
     const index = variant?.sections.findIndex((s) => s.id === section.id) ?? -1;
-    const snapshot: Section = JSON.parse(JSON.stringify(section));
-    remove(section.id);
+    // `section` is the resolved view (linked items carry bank wording). Undo
+    // must restore the RAW section, which `remove` returns.
+    const snapshot = remove(section.id);
+    if (!snapshot) return;
     pushToast({
       message: `Section "${snapshot.title}" deleted`,
       undo: () => {
@@ -90,6 +93,8 @@ export function SectionEditor({ section }: Props) {
           className="btn small ghost"
           onClick={() => toggleCollapsed(section.id)}
           title={collapsed ? "Expand" : "Collapse"}
+          aria-expanded={!collapsed}
+          aria-label={`${collapsed ? "Expand" : "Collapse"} ${section.title}`}
         >
           {collapsed ? "▸" : "▾"}
         </button>
@@ -132,13 +137,12 @@ export function SectionEditor({ section }: Props) {
               ))}
             </SortableContext>
           </DndContext>
-          <button
-            className="btn small"
-            style={{ marginTop: 4 }}
-            onClick={() => addItem(section.id)}
-          >
-            + Add {isSkills ? "skill row" : "item"}
-          </button>
+          <div className="section-add-row">
+            <button className="btn small" onClick={() => addItem(section.id)}>
+              + Add {isSkills ? "skill row" : "item"}
+            </button>
+            <BankPicker section={section} />
+          </div>
         </>
       )}
     </div>
