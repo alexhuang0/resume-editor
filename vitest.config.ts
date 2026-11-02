@@ -20,6 +20,7 @@ export default defineConfig({
       "src/components/Preview/**/*.test.ts",
       "src/components/Preview/**/*.test.tsx",
       "src/store/**/*.test.ts",
+      "src/sync/**/*.test.ts",
       "src/exporters/**/*.test.ts",
       "src/utils/**/*.test.ts",
       "src/utils/**/*.test.tsx",

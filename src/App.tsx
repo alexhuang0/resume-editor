@@ -13,7 +13,7 @@ import {
   arrayMove,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Fragment, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { useResumeStore, useCurrentResume } from "./store/resumeStore";
 import { collapseTargets } from "./store/collapseTargets";
 import { useUiStore } from "./store/uiStore";
@@ -25,6 +25,10 @@ import { ResumePreview } from "./components/Preview/ResumePreview";
 import { pageFitLabel } from "./components/Preview/previewScale";
 import type { Zoom } from "./components/Preview/previewScale";
 import { Toasts } from "./components/Toasts";
+import { AccountControl } from "./sync/AccountControl";
+import { ConflictPrompt } from "./sync/ConflictPrompt";
+import { useAuth } from "./sync/useAuth";
+import { startController, stopController } from "./sync/syncController";
 import { useEditorShortcuts } from "./hooks/useShortcuts";
 import { exportMarkdownFile } from "./exporters/importExport";
 import { resumeToMarkdown } from "./exporters/toMarkdown";
@@ -177,6 +181,39 @@ function SortablePane({
 
 function App() {
   useEditorShortcuts();
+
+  // The app root owns auth resolution and the sync controller's lifecycle.
+  //
+  // `useAuth()` is the single driver of auth state (design §2). AccountControl
+  // also calls it, but the module-level `wired` guard inside makes the Supabase
+  // subscription idempotent, so calling it here as well is safe and hands the
+  // root the reactive { status, userId } the controller effect needs. In
+  // Local_Only_Mode `useAuth` resolves straight to `signed_out` and never
+  // subscribes, so this stays inert and no network call fires (Req 8.4).
+  const { status, userId } = useAuth();
+
+  // Tie the controller to auth status: start it when a user is signed in, stop
+  // it on sign-out. `startController(userId)` is idempotent per user (a repeat
+  // start for the same id is a no-op), so a `signed_in` re-render — e.g. on a
+  // token refresh — can't thrash it. `stopController()` runs whenever we leave
+  // signed-in (status change or unmount), tearing down the store subscription,
+  // the debounce, and any pending conflict.
+  //
+  // Nothing here gates the editor: this effect only governs the sync layer, so
+  // the local library still renders during `resolving` and in Local_Only_Mode
+  // before any auth request (Req 1.1–1.3, 1.6, 3.6).
+  useEffect(() => {
+    if (status === "signed_in" && userId) {
+      void startController(userId);
+      return () => stopController();
+    }
+    if (status === "signed_out") {
+      stopController();
+    }
+    // `resolving`: do nothing — never block the first paint on session restore.
+    return undefined;
+  }, [status, userId]);
+
   const resume = useCurrentResume();
   const setFont = useResumeStore((s) => s.setFont);
   const paneOrder = useUiStore((s) => s.paneOrder);
@@ -390,6 +427,12 @@ function App() {
               </span>
             )}
             <div className="right">
+              {/* The account cluster (sign-in / email + sign-out + sync chip,
+                  or the unconfigured indicator) lives in the preview toolbar's
+                  right group — the app's always-visible top chrome. It renders
+                  nothing while a session is resolving, so it never blocks the
+                  first paint (design §5, Req 1.6/3.6). */}
+              <AccountControl />
               <span className="zoom-toggle">
                 <label htmlFor="preview-zoom">Zoom:</label>
                 <select
@@ -473,6 +516,10 @@ function App() {
         </SortableContext>
       </DndContext>
       <Toasts />
+      {/* Mounted at the app root so the Cloud_Newer_Condition modal can appear
+          over the editor. It renders nothing unless the controller opens a
+          pending conflict (design §5 → Conflict_Prompt, Req 5.3–5.7). */}
+      <ConflictPrompt />
     </div>
   );
 }

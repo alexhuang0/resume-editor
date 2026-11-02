@@ -18,6 +18,8 @@ npm run preview   # serve the built dist/
 
 `npm test` (vitest) covers the pure core — the resolver, schema migrations, the import-side divergence detector, and the preview/page-fit math — including property-based tests. It can't reach PDF fidelity, drag-and-drop, or ATS-parseability, so the manual ritual in [ONBOARDING.md](./ONBOARDING.md) §8 still owns those. Run both before shipping.
 
+Cloud sync and Google sign-in are gated on two env vars: `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (copy `.env.example` → `.env` and fill them). When both are present and valid the sign-in button and sync layer turn on; when either is absent or invalid the app runs in **Local_Only_Mode** — no network, no auth, editor fully usable against `localStorage`. The dev server and test suite need neither var.
+
 ## Architecture
 
 Three-pane SPA: `VariantsSidebar | Editor (HeaderEditor + SectionList) | ResumePreview`. Each pane is wrapped in a `SortablePane` (defined in `src/App.tsx`) with a top bar containing a drag handle and a minimize (−/+) button. Pane order is a horizontal `SortableContext` at the app root. Minimized panes collapse to a 32px strip with a rotated vertical label. State lives in two zustand stores:
@@ -96,6 +98,10 @@ Both are deliberate and both will surprise you if rediscovered the hard way:
 - **Detach bakes the overlay; resync discards it.** `detachItem` (via `bakeOverlay` in `resolve.ts`) applies `bulletOrder` to the local bullets and turns each `hiddenBulletIds` entry into `bullet.hidden = true` — the bullet stays in the array, flagged, since preview and Markdown both filter `hidden`. So the resolved *data* changes shape across detach even though the rendered *output* does not. `resyncItem` is a hard overwrite: it clears local content wholesale and does **not** reconstruct `hiddenBulletIds` from the baked flags, so resync drops the variant's bullet-level visibility and order along with the local wording. The undo toast is the only escape hatch; there is no three-way merge. Design §4.3.
 - **Single-variant export resolves; library export stays raw.** In `src/exporters/importExport.ts`, `resumeJsonPayload` / `exportResumeAsJsonFile` run `resolveResume` so a single-variant file inlines bank wording and reads as a normal resume for Claude.ai (`link`/`hiddenBulletIds`/`bulletOrder` ride along as inert metadata; the `orphaned` UI flag is stripped). `libraryJsonPayload` / `exportLibraryAsJsonFile` keep the **raw** variants and carry `bank` — it's a backup, so inlining would defeat the point, and a library import must restore `bank` or every link dangles into a blank item. Design §4.7.
 
+### Cloud sync
+
+An optional sync layer lives in `src/sync/` and stays dormant unless the `VITE_SUPABASE_*` vars are present and a user is signed in (otherwise Local_Only_Mode — see Commands). The resume store is untouched: the **Sync_Engine** reads the store's persisted slice, builds a payload, and calls the existing `replaceLibrary` on the way back in. The whole library is stored server-side as **one JSONB row per user** (`libraries` table keyed by `user_id`), so a write replaces that row wholesale. Reconciliation is **last-write-wins** by `updated_at`: when the cloud row is newer than this device's last-synced marker, the user gets a **Conflict_Prompt** (a real modal, not a toast) offering keep-local / use-cloud / download-backup; otherwise local and cloud merge by id and the result is written back. **UI_State is excluded from the payload** — only `variants`, `currentVariantId`, `bank`, and `payloadVersion` are synced; the `uiStore` slice (collapsed sections/items, pane order, minimized panes) never leaves the browser, consistent with it never being persisted or exported.
+
 ### The JSON artifact contract
 
 `src/store/schema.ts` defines the canonical `Resume` shape with `zod`. This schema is **the contract with Claude.ai** — the user exports JSON, pastes it into Claude with a job posting, and re-imports Claude's modified JSON. The tailoring prompt and the rules that keep the round trip lossless live in [PROMPTS.md](./PROMPTS.md). When changing the schema:
@@ -147,7 +153,7 @@ Section / Item / Bullet deletes capture the node and its index, call the store d
 ## Out of scope (don't add)
 
 These were explicitly excluded during planning to keep the app focused:
-- Cloud sync, accounts, multi-device, version history.
+- Version history.
 - In-browser LaTeX engine (Tectonic / WASM).
 - AI tailoring inside the app — Claude.ai is the tailoring surface; this app is the editor + artifact source.
 - Cover letters, multi-page layouts, themes.
