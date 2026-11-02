@@ -16,6 +16,7 @@ import { useResumeStore } from "../../store/resumeStore";
 import type { Bullet } from "../../store/schema";
 import { useUiStore } from "../../store/uiStore";
 import { HideToggle } from "./HideToggle";
+import { AutoTextarea } from "../AutoTextarea";
 
 type Props = {
   sectionId: string;
@@ -89,10 +90,9 @@ function BulletRow({
       <span className="drag-handle" {...attributes} {...listeners} title="Drag">
         ⠿
       </span>
-      <textarea
+      <AutoTextarea
         className="bullet-text"
         value={bullet.text}
-        rows={1}
         onChange={(e) =>
           update(sectionId, itemId, bullet.id, e.target.value)
         }

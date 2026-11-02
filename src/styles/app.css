@@ -557,7 +557,10 @@ textarea.row-input {
   border-radius: 6px;
   padding: 4px 6px;
   font-size: 13px;
-  resize: vertical;
+  /* Height is driven by AutoTextarea (grows to fit content), so the manual
+     resize handle is gone and the box never shows an inner scrollbar. */
+  resize: none;
+  overflow: hidden;
   min-height: 28px;
   font-family: inherit;
   line-height: 1.4;

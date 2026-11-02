@@ -23,6 +23,48 @@
   --resume-font: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
+/* Latin Modern Roman — the web build (GUST Font License) of the Computer
+   Modern family LaTeX/Overleaf renders by default. Self-hosted from
+   /public/fonts so the glyphs embed in printed PDFs and the app works offline;
+   see public/fonts/LICENSE-GUST-FONT.txt. `font-display: swap` lets the page
+   paint in the fallback serif immediately and swap in the real face once
+   loaded, so the preview is never blank. */
+@font-face {
+  font-family: "Latin Modern Roman";
+  src: url("/fonts/lmroman-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Latin Modern Roman";
+  src: url("/fonts/lmroman-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Latin Modern Roman";
+  src: url("/fonts/lmroman-italic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Latin Modern Roman";
+  src: url("/fonts/lmroman-bolditalic.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* The default face. The var() fallback in .page already lists "Latin Modern
+   Roman" first, but naming it explicitly here keeps the two font choices
+   symmetric and documents that this class is the LaTeX look. */
+.page.font-latin-modern {
+  --resume-font: "Latin Modern Roman", "CMU Serif", "Computer Modern", Georgia, "Times New Roman", serif;
+}
+
 /* Header */
 .r-header {
   text-align: center;
@@ -30,7 +72,7 @@
 }
 
 .r-name {
-  font-size: 20pt;
+  font-size: 18.5pt;
   font-weight: bold;
   letter-spacing: 0.02em;
   margin: 0 0 2pt 0;
@@ -42,7 +84,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0 8pt;
+  gap: 0 4pt;
   margin: 0;
 }
 

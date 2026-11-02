@@ -215,6 +215,18 @@ function App() {
   }, [status, userId]);
 
   const resume = useCurrentResume();
+
+  // Keep the document title in sync with the active variant so the browser's
+  // Print / Save as PDF dialog defaults its filename to the variant name
+  // (e.g. "Backend Engineer.pdf") rather than the static app title. Restored
+  // on unmount so the title doesn't stick if the app is ever embedded.
+  useEffect(() => {
+    const previous = document.title;
+    document.title = resume.name || "Resume";
+    return () => {
+      document.title = previous;
+    };
+  }, [resume.name]);
   const setFont = useResumeStore((s) => s.setFont);
   const paneOrder = useUiStore((s) => s.paneOrder);
   const minimizedPanes = useUiStore((s) => s.minimizedPanes);

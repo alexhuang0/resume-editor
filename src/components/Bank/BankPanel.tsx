@@ -4,6 +4,7 @@ import type { BankItem, SectionKind } from "../../store/schema";
 import { bankItemDisplayLabel } from "../../store/bankLabel";
 import { useUiStore } from "../../store/uiStore";
 import { BankImporter } from "./BankImporter";
+import { AutoTextarea } from "../AutoTextarea";
 
 const KINDS: { kind: SectionKind; label: string }[] = [
   { kind: "experience", label: "Experience" },
@@ -260,10 +261,9 @@ function BankBulletList({ bankId, bullets }: { bankId: string; bullets: BankItem
       <ul className="bullets-list">
         {bullets.map((b, i) => (
           <li key={b.id} className="editor-row bullet">
-            <textarea
+            <AutoTextarea
               className="bullet-text"
               value={b.text}
-              rows={1}
               placeholder="Bullet text"
               onChange={(e) => update(bankId, b.id, e.target.value)}
             />

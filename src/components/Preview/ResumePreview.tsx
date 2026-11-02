@@ -124,7 +124,7 @@ function ResumePage({ resume, pageRef }: Props & { pageRef?: Ref<HTMLElement> })
               <span key={c.key}>
                 {c.node}
                 {i < contactItems.length - 1 && (
-                  <span className="r-sep"> | </span>
+                  <span className="r-sep"> |</span>
                 )}
               </span>
             ))}
