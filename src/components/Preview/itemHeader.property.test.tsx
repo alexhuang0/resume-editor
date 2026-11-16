@@ -148,10 +148,12 @@ describe("Feature: resume-rich-text-formatting, Property 2: Heading and subheadi
     { make: (x: string) => `!!${x}!!`, marker: 'class="r-unbold"', literal: "!!" },
   );
   // Inner text with no delimiter chars so the token parses cleanly and the
-  // "literal delimiters gone" assertion is about the parser.
+  // "literal delimiters gone" assertion is about the parser. Backslash is
+  // excluded too: it is now an escape char, so a `\\x` inside the token would be
+  // unescaped in the output and drift from the generator's literal text.
   const inner = fc
     .string({ minLength: 1 })
-    .filter((s) => s.trim().length > 0 && !/[*!\[\]()]/.test(s));
+    .filter((s) => s.trim().length > 0 && !/[*!\[\]()\\]/.test(s));
 
   it("renders a supported token in heading as its parsed element, not literal delimiters", () => {
     fc.assert(

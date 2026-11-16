@@ -6,7 +6,7 @@
   /* Letter @ 96dpi: 8.5in x 11in. Margins ~0.5in. */
   width: 8.5in;
   min-height: 11in;
-  padding: 0.5in 0.6in;
+  padding: 0.4in 0.5in;
   background: #fff;
   color: #000;
   font-family: var(--resume-font, "Latin Modern Roman", "CMU Serif", "Computer Modern", Georgia, "Times New Roman", serif);

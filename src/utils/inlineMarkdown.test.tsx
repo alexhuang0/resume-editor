@@ -114,6 +114,39 @@ describe("renderInline — empty / falsy input returns no node (R5.5)", () => {
   });
 });
 
+describe("renderInline — backslash escapes a literal markdown character", () => {
+  it("renders a bold span whose text contains a literal * via \\*", () => {
+    // The reported bug: `**A* path planning**` broke pairing because the inner
+    // `*` was read as an emphasis delimiter. Escaping the star fixes it.
+    const markup = html(renderInline("Implemented **A\\* path planning** from scratch"));
+
+    expect(markup).toContain("<strong>A* path planning</strong>");
+    expect(markup).toContain("Implemented ");
+    expect(markup).toContain(" from scratch");
+    // No stray single-star emphasis leaked out.
+    expect(markup).not.toContain("<em>");
+  });
+
+  it("renders a lone escaped star as a literal * with no emphasis", () => {
+    const markup = html(renderInline("2 \\* 3 = 6"));
+    expect(markup).toContain("2 * 3 = 6");
+    expect(markup).not.toContain("<em>");
+    expect(markup).not.toContain("<strong>");
+  });
+
+  it("escapes !, [ and the backslash itself", () => {
+    expect(html(renderInline("wow\\!"))).toContain("wow!");
+    expect(html(renderInline("\\[not a link]"))).toContain("[not a link]");
+    expect(html(renderInline("a \\\\ b"))).toContain("a \\ b");
+  });
+
+  it("leaves a backslash before an ordinary char untouched (e.g. a path)", () => {
+    // Only * ! [ \\ are escapable; C:\\Users must keep its backslash.
+    const markup = html(renderInline("C:\\Users\\Alex"));
+    expect(markup).toContain("C:\\Users\\Alex");
+  });
+});
+
 describe("renderInline — HTML-significant characters stay literal (R5.4)", () => {
   it("escapes < > & rather than injecting markup", () => {
     const markup = html(renderInline("a < b & c > d"));

@@ -79,17 +79,21 @@ const RUNS = { numRuns: 200 };
  */
 const unboldInner = fc
   .string({ minLength: 1 })
-  .filter((s) => s.length > 0 && !s.includes("!"));
+  // No `!` (would close the token) and no `\\` (now an escape char, so it would
+  // be unescaped in the output and drift from the generator's literal intent).
+  .filter((s) => s.length > 0 && !s.includes("!") && !s.includes("\\"));
 
 /** Inner text for a bold/italic token: non-empty, no `*`. */
 const starInner = fc
   .string({ minLength: 1 })
-  .filter((s) => s.length > 0 && !s.includes("*"));
+  // No `*` (would close the token) and no `\\` (escape char — see unboldInner).
+  .filter((s) => s.length > 0 && !s.includes("*") && !s.includes("\\"));
 
 /** Link inner text: non-empty, no `]` (would close the `[...]`). */
 const linkText = fc
   .string({ minLength: 1 })
-  .filter((s) => s.length > 0 && !s.includes("]"));
+  // No `]` (would close the `[...]`) and no `\\` (escape char — see unboldInner).
+  .filter((s) => s.length > 0 && !s.includes("]") && !s.includes("\\"));
 
 /** A url with a recognized scheme, so the href resolves to it verbatim. */
 const schemeUrl = fc
@@ -119,7 +123,12 @@ const tokenFreeText = fc
     { maxLength: 6 },
   )
   .map((parts) => parts.join(" "))
-  .filter((s) => !s.includes("!!"));
+  // Exclude `!!` (the unbold token) and any backslash: the reference renderer
+  // predates both the unbold token AND backslash-escaping, so a `\\*`/`\\!`/`\\[`/`\\\\`
+  // sequence would legitimately render differently from the reference. Property 5
+  // is about escape-free, token-free text, so filtering backslashes keeps the
+  // comparison inside that stated input space.
+  .filter((s) => !s.includes("!!") && !s.includes("\\"));
 
 describe("Feature: resume-rich-text-formatting, Property 4: Unbold token yields a normal-weight element without delimiters", () => {
   it("renders !!text!! as an .r-unbold element whose text is the inner text, no ! delimiters", () => {
